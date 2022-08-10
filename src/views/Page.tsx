@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { Box, Flex } from '@pancakeswap/uikit'
-import Footer from 'components/Menu/Footer'
+// import { Box, Flex } from '@pancakeswap/uikit'
+// import Footer from 'components/Menu/Footer'
 import { PageMeta } from 'components/Layout/Page'
-import { EXCHANGE_DOCS_URLS } from 'config/constants'
+// import { EXCHANGE_DOCS_URLS } from 'config/constants'
 
 const StyledPage = styled.div<{ $removePadding: boolean; $noMinHeight }>`
   display: flex;
@@ -12,7 +12,10 @@ const StyledPage = styled.div<{ $removePadding: boolean; $noMinHeight }>`
   padding: ${({ $removePadding }) => ($removePadding ? '0' : '16px')};
   padding-bottom: 0;
   min-height: ${({ $noMinHeight }) => ($noMinHeight ? 'initial' : 'calc(100vh - 64px)')};
-  background: ${({ theme }) => theme.colors.gradients.bubblegum};
+  background-image: url(${'/wakanda-inu/bg.jpg'});
+  background-position: 53% 16px;
+  background-size: cover;
+  background-repeat: no-repeat;
 
   ${({ theme }) => theme.mediaQueries.xs} {
     background-size: auto;
@@ -40,9 +43,9 @@ const Page: React.FC<
 > = ({
   children,
   removePadding = false,
-  hideFooterOnDesktop = false,
+  // hideFooterOnDesktop = false,
   noMinHeight = false,
-  helpUrl = EXCHANGE_DOCS_URLS,
+  // helpUrl = EXCHANGE_DOCS_URLS,
   ...props
 }) => {
   return (
@@ -50,10 +53,10 @@ const Page: React.FC<
       <PageMeta />
       <StyledPage $removePadding={removePadding} $noMinHeight={noMinHeight} {...props}>
         {children}
-        <Flex flexGrow={1} />
+        {/* <Flex flexGrow={1} />
         <Box display={['block', null, null, hideFooterOnDesktop ? 'none' : 'block']} width="100%">
           <Footer helpUrl={helpUrl} />
-        </Box>
+        </Box> */}
       </StyledPage>
     </>
   )

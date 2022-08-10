@@ -13,12 +13,13 @@ import useUserAgent from 'hooks/useUserAgent'
 import useThemeCookie from 'hooks/useThemeCookie'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { PersistGate } from 'redux-persist/integration/react'
 import { useStore, persistor } from 'state'
 import { usePollBlockNumber } from 'state/block/hooks'
 import { usePollCoreFarmData } from 'state/farms/hooks'
 import { NextPage } from 'next'
+import Router from 'next/router'
 import { Blocklist, Updaters } from '..'
 import ErrorBoundary from '../components/ErrorBoundary'
 import Menu from '../components/Menu'
@@ -57,6 +58,13 @@ function MPGlobalHooks() {
 function MyApp(props: AppProps) {
   const { pageProps, Component } = props
   const store = useStore(pageProps.initialReduxState)
+
+  useEffect(() => {
+    const { pathname } = Router
+    if (pathname === '/') {
+      Router.push('/swap')
+    }
+  })
 
   return (
     <>

@@ -9,11 +9,9 @@ const Container = styled(Flex)`
   height: 100%;
   padding: 12px;
   align-items: center;
-  background: linear-gradient(0deg, rgba(39, 38, 44, 0.4), rgba(39, 38, 44, 0.4)),
-    linear-gradient(180deg, #8051d6 0%, #492286 100%);
+  background: linear-gradient(0deg, rgb(72, 63, 59), rgb(72, 63, 59));
   ${({ theme }) => theme.mediaQueries.md} {
     padding: 0px;
-    background: linear-gradient(180deg, #8051d6 0%, #492286 100%);
   }
 `
 
@@ -45,8 +43,8 @@ const PhishingWarningBanner: React.FC = () => {
   const [, hideBanner] = usePhishingBannerManager()
   const { isMobile, isMd } = useMatchBreakpointsContext()
   const warningTextAsParts = useMemo(() => {
-    const warningText = t("please make sure you're visiting https://pancakeswap.finance - check the URL carefully.")
-    return warningText.split(/(https:\/\/pancakeswap.finance)/g)
+    const warningText = t("please make sure you're visiting https://wakandaswap.finance - check the URL carefully.")
+    return warningText.split(/(https:\/\/wakandaswap.finance)/g)
   }, [t])
   const warningTextComponent = (
     <>
@@ -59,8 +57,8 @@ const PhishingWarningBanner: React.FC = () => {
           key={i}
           small
           as="span"
-          bold={text === 'https://pancakeswap.finance'}
-          color={text === 'https://pancakeswap.finance' ? '#FFFFFF' : '#BDC2C4'}
+          bold={text === 'https://wakandaswap.finance'}
+          color={text === 'https://wakandaswap.finance' ? '#FFFFFF' : '#BDC2C4'}
         >
           {text}
         </Text>
@@ -79,7 +77,7 @@ const PhishingWarningBanner: React.FC = () => {
       ) : (
         <>
           <InnerContainer>
-            <img
+            {/* <img
               src="/images/decorations/phishing-warning-bunny.webp"
               alt="phishing-warning"
               width="92px"
@@ -90,7 +88,7 @@ const PhishingWarningBanner: React.FC = () => {
                   e.currentTarget.src = fallbackSrc
                 }
               }}
-            />
+            /> */}
             <SpeechBubble>{warningTextComponent}</SpeechBubble>
           </InnerContainer>
           <IconButton onClick={hideBanner} variant="text">

@@ -1,33 +1,22 @@
 import React from "react";
-import { baseColors, darkColors, lightColors } from "../../theme/colors";
+import { darkColors, lightColors } from "../../theme/colors";
 import { Flex, Box } from "../Box";
-import { Link } from "../Link";
-import {
-  StyledFooter,
-  StyledIconMobileContainer,
-  StyledList,
-  StyledListItem,
-  StyledText,
-  StyledSocialLinks,
-  StyledToolsContainer,
-} from "./styles";
+import { StyledFooter, StyledIconMobileContainer, StyledSocialLinks, StyledToolsContainer } from "./styles";
 import { FooterProps } from "./types";
 import { ThemeSwitcher } from "../ThemeSwitcher";
 import LangSelector from "../LangSelector/LangSelector";
-import CakePrice from "../CakePrice/CakePrice";
 import { LogoWithTextIcon, ArrowForwardIcon } from "../Svg";
 import { Button } from "../Button";
 import { Colors } from "../..";
 
 const MenuItem: React.FC<FooterProps> = ({
-  items,
+  // items,
   isDark,
   toggleTheme,
   currentLang,
   langs,
   setLang,
-  cakePriceUsd,
-  buyCakeLabel,
+  buyWKDLabel,
   ...props
 }) => {
   return (
@@ -43,7 +32,7 @@ const MenuItem: React.FC<FooterProps> = ({
           alignItems="flex-start"
           mb={["42px", null, "36px"]}
         >
-          {items?.map((item) => (
+          {/* {items?.map((item) => (
             <StyledList key={item.label}>
               <StyledListItem>{item.label}</StyledListItem>
               {item.items?.map(({ label, href, isHighlighted = false }) => (
@@ -64,7 +53,7 @@ const MenuItem: React.FC<FooterProps> = ({
                 </StyledListItem>
               ))}
             </StyledList>
-          ))}
+          ))} */}
           <Box display={["none", null, "block"]}>
             <LogoWithTextIcon isDark width="160px" />
           </Box>
@@ -86,17 +75,14 @@ const MenuItem: React.FC<FooterProps> = ({
             />
           </Flex>
           <Flex order={[1, null, 2]} mb={["24px", null, "0"]} justifyContent="space-between" alignItems="center">
-            <Box mr="20px">
-              <CakePrice cakePriceUsd={cakePriceUsd} color={darkColors.textSubtle as keyof Colors} />
-            </Box>
             <Button
               as="a"
-              href="https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"
+              href="https://wakandaswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"
               target="_blank"
               scale="sm"
               endIcon={<ArrowForwardIcon color={lightColors.backgroundAlt} />}
             >
-              {buyCakeLabel}
+              {buyWKDLabel}
             </Button>
           </Flex>
         </StyledToolsContainer>
