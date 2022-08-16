@@ -55,7 +55,7 @@ const config: (
     },
     {
       label: '',
-      href: '/info',
+      href: '/ifo',
       icon: MoreIcon,
       hideSubNav: true,
       supportChainIds: [ChainId.BSC],
