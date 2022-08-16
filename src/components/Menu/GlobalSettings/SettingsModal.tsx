@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { Text, PancakeToggle, Toggle, Flex, Modal, InjectedModalProps, ThemeSwitcher, Box } from '@pancakeswap/uikit'
+import { Text, Toggle, Flex, Modal, InjectedModalProps, ThemeSwitcher } from '@pancakeswap/uikit'
 import {
-  useAudioModeManager,
+  // useAudioModeManager,
   useExpertModeManager,
-  useSubgraphHealthIndicatorManager,
+  // useSubgraphHealthIndicatorManager,
   useUserExpertModeAcknowledgementShow,
   useUserSingleHopOnly,
-  useZapModeManager,
+  // useZapModeManager,
 } from 'state/user/hooks'
 import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
 import { useTranslation } from 'contexts/Localization'
@@ -35,9 +35,9 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss, mode }) => {
   const [showExpertModeAcknowledgement, setShowExpertModeAcknowledgement] = useUserExpertModeAcknowledgementShow()
   const [expertMode, toggleExpertMode] = useExpertModeManager()
   const [singleHopOnly, setSingleHopOnly] = useUserSingleHopOnly()
-  const [audioPlay, toggleSetAudioMode] = useAudioModeManager()
-  const [zapMode, toggleZapMode] = useZapModeManager()
-  const [subgraphHealth, setSubgraphHealth] = useSubgraphHealthIndicatorManager()
+  // const [audioPlay, toggleSetAudioMode] = useAudioModeManager()
+  // const [zapMode, toggleZapMode] = useZapModeManager()
+  // const [subgraphHealth, setSubgraphHealth] = useSubgraphHealthIndicatorManager()
   const { onChangeRecipient } = useSwapActionHandlers()
 
   const { t } = useTranslation()
@@ -83,7 +83,7 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss, mode }) => {
                 <Text>{t('Dark mode')}</Text>
                 <ThemeSwitcher isDark={isDark} toggleTheme={() => setTheme(isDark ? 'light' : 'dark')} />
               </Flex>
-              <Flex justifyContent="space-between" alignItems="center" mb="24px">
+              {/* <Flex justifyContent="space-between" alignItems="center" mb="24px">
                 <Flex alignItems="center">
                   <Text>{t('Subgraph Health Indicator')}</Text>
                   <QuestionHelper
@@ -102,7 +102,7 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss, mode }) => {
                     setSubgraphHealth(!subgraphHealth)
                   }}
                 />
-              </Flex>
+              </Flex> */}
               <GasSettings />
             </Flex>
           </>
@@ -118,7 +118,7 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss, mode }) => {
               </Flex>
               <TransactionSettings />
             </Flex>
-            <Flex justifyContent="space-between" alignItems="center" mb="24px">
+            {/* <Flex justifyContent="space-between" alignItems="center" mb="24px">
               <Flex alignItems="center">
                 <Text>{t('Zap (Beta)')}</Text>
                 <QuestionHelper
@@ -147,7 +147,7 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss, mode }) => {
                   toggleZapMode(!zapMode)
                 }}
               />
-            </Flex>
+            </Flex> */}
             <Flex justifyContent="space-between" alignItems="center" mb="24px">
               <Flex alignItems="center">
                 <Text>{t('Expert Mode')}</Text>
@@ -178,7 +178,7 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss, mode }) => {
                 }}
               />
             </Flex>
-            <Flex justifyContent="space-between" alignItems="center" mb="24px">
+            {/* <Flex justifyContent="space-between" alignItems="center" mb="24px">
               <Flex alignItems="center">
                 <Text>{t('Flippy sounds')}</Text>
                 <QuestionHelper
@@ -188,7 +188,7 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss, mode }) => {
                 />
               </Flex>
               <PancakeToggle checked={audioPlay} onChange={toggleSetAudioMode} scale="md" />
-            </Flex>
+            </Flex> */}
           </>
         )}
       </ScrollableContainer>
