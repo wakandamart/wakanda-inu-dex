@@ -59,12 +59,12 @@ function MyApp(props: AppProps) {
   const { pageProps, Component } = props
   const store = useStore(pageProps.initialReduxState)
 
-  useEffect(() => {
-    const { pathname } = Router
-    if (pathname === '/') {
-      Router.push('/swap')
-    }
-  })
+  // useEffect(() => {
+  //   const { pathname } = Router
+  //   if (pathname === '/') {
+  //     Router.push('/swap')
+  //   }
+  // })
 
   return (
     <>
