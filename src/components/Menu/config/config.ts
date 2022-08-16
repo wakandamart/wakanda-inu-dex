@@ -1,4 +1,4 @@
-import { MenuItemsType, SwapIcon, SwapFillIcon, EarnFillIcon, EarnIcon, MoreIcon } from '@pancakeswap/uikit'
+import { MenuItemsType, SwapIcon, SwapFillIcon, EarnFillIcon, EarnIcon, RocketIcon } from '@pancakeswap/uikit'
 import { ContextApi } from 'contexts/Localization/types'
 import { DropdownMenuItems } from '@pancakeswap/uikit/src/components/DropdownMenu/types'
 import { ChainId } from '@pancakeswap/sdk'
@@ -54,17 +54,12 @@ const config: (
       ],
     },
     {
-      label: '',
+      label: 'IFO',
       href: '/ifo',
-      icon: MoreIcon,
+      icon: RocketIcon,
       hideSubNav: true,
       supportChainIds: [ChainId.BSC],
-      items: [
-        {
-          label: t('IFO'),
-          href: '/ifo',
-        },
-      ],
+      items: [],
     },
   ].filter((item) => filterItemBySupportChainId(item, chainId))
 
