@@ -1,6 +1,6 @@
-# 🥞 Pancake Frontend
+# WKDSwap Frontend
 
-This project contains the main features of the pancake application.
+This project is a fork of [pancake-frontend](https://github.com/pancakeswap/pancake-frontend) repository
 
 If you want to contribute, please refer to the [contributing guidelines](./CONTRIBUTING.md) of this project.
 
