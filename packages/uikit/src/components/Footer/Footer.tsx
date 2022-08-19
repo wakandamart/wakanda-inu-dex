@@ -1,13 +1,33 @@
 import React from "react";
+import styled from "styled-components";
 import { darkColors, lightColors } from "../../theme/colors";
 import { Flex, Box } from "../Box";
+import { Text } from "../Text";
 import { StyledFooter, StyledIconMobileContainer, StyledSocialLinks, StyledToolsContainer } from "./styles";
 import { FooterProps } from "./types";
 import { ThemeSwitcher } from "../ThemeSwitcher";
 import LangSelector from "../LangSelector/LangSelector";
-import { LogoWithTextIcon, ArrowForwardIcon } from "../Svg";
+import { LogoWithTextIcon, ArrowForwardIcon, LogoIcon } from "../Svg";
 import { Button } from "../Button";
 import { Colors } from "../..";
+
+const StyledLink = styled("a")`
+  display: flex;
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out;
+  align-items: center;
+  .icon {
+    width: 160px;
+    display: flex;
+    .icon-image {
+      width: 32px;
+    }
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
 
 const MenuItem: React.FC<FooterProps> = ({
   // items,
@@ -55,7 +75,14 @@ const MenuItem: React.FC<FooterProps> = ({
             </StyledList>
           ))} */}
           <Box display={["none", null, "block"]}>
-            <LogoWithTextIcon isDark width="160px" />
+            <StyledLink as="a" href="/" aria-label="WKDSwap home page">
+              <Flex className="icon" alignItems="center" height="32px">
+                <LogoIcon height="32px" className="icon-image" />
+                <Text bold color="primary" marginLeft={1}>
+                  WKDSwap
+                </Text>
+              </Flex>
+            </StyledLink>
           </Box>
         </Flex>
         <StyledSocialLinks order={[2]} pb={["42px", null, "32px"]} mb={["0", null, "32px"]} />
