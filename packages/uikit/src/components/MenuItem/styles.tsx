@@ -24,10 +24,8 @@ const StyledMenuItem = styled.a<StyledMenuItemProps>`
   position: relative;
   display: flex;
   align-items: center;
-
-  color: ${({ theme, $isActive }) => ($isActive ? theme.colors.secondary : theme.colors.textSubtle)};
   font-size: 16px;
-  font-weight: ${({ $isActive }) => ($isActive ? "600" : "400")};
+  font-weight: ${({ $isActive }) => ($isActive ? "900" : "200")};
 
   ${({ $statusColor, theme }) =>
     $statusColor &&
@@ -54,7 +52,7 @@ const StyledMenuItem = styled.a<StyledMenuItemProps>`
   `}
 
   &:hover {
-    background: ${({ theme }) => theme.colors.tertiary};
+    background: ${({ theme }) => theme.colors.primary};
     ${({ $variant }) => $variant === "default" && "border-radius: 16px;"};
   }
 `;

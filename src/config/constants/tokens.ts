@@ -1,5 +1,23 @@
 import { ChainId, Token, WBNB } from '@pancakeswap/sdk'
 
+const WKD_MAINET = new Token(
+  ChainId.BSC,
+  '0x5344C20FD242545F31723689662AC12b9556fC3d',
+  9,
+  'WKD',
+  'Wakanda Inu Token',
+  'https://www.wakandainu.com/',
+)
+
+const WKD_TESTNET = new Token(
+  ChainId.BSC_TESTNET,
+  '0x677e88192637BD63d5e8fA81F99DAbA95B13C118',
+  9,
+  'WKD',
+  'Wakanda Inu Token',
+  'https://www.wakandainu.com/',
+)
+
 const CAKE_MAINNET = new Token(
   ChainId.BSC,
   '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82',
@@ -39,6 +57,11 @@ const USDC_TESTNET = new Token(
 export const USDC = {
   [ChainId.BSC]: USDC_BSC,
   [ChainId.BSC_TESTNET]: USDC_TESTNET,
+}
+
+export const WKD = {
+  [ChainId.BSC]: WKD_MAINET,
+  [ChainId.BSC_TESTNET]: WKD_TESTNET,
 }
 
 export const CAKE = {
