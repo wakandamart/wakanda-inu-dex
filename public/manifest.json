@@ -1,12 +1,12 @@
 {
-  "short_name": "PancakeSwap",
-  "name": "PancakeSwap",
-  "description": "Farm CAKE with Pancake LP Tokens",
-  "homepage_url": "https://pancakeswap.finance",
+  "short_name": "WKDSwap",
+  "name": "WKDSwap",
+  "description": "swap and earn reward on staking",
+  "homepage_url": "",
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#1FC7D4",
-  "background_color": "#ffffff",
+  "theme_color": "#493F3B",
+  "background_color": "#181818",
   "orientation": "portrait",
   "icons": [
     {
