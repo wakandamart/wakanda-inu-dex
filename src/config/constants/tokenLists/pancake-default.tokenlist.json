@@ -51,12 +51,12 @@
       "logoURI": "https://pancakeswap.finance/images/tokens/0x55d398326f99059fF775485246999027B3197955.png"
     },
     {
-      "name": "PancakeSwap Token",
-      "symbol": "CAKE",
-      "address": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
+      "name": "Wakanda Inu Token",
+      "symbol": "WKD",
+      "address": "0x5344C20FD242545F31723689662AC12b9556fC3d",
       "chainId": 56,
-      "decimals": 18,
-      "logoURI": "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png"
+      "decimals": 9,
+      "logoURI": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x5344C20FD242545F31723689662AC12b9556fC3d/logo.png"
     },
     {
       "name": "Venus",
@@ -73,14 +73,6 @@
       "chainId": 56,
       "decimals": 18,
       "logoURI": "https://pancakeswap.finance/images/tokens/0x4BD17003473389A42DAF6a0a729f6Fdb328BbBd7.png"
-    },
-    {
-      "name": "Pancake Bunny",
-      "symbol": "BUNNY",
-      "address": "0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51",
-      "chainId": 56,
-      "decimals": 18,
-      "logoURI": "https://pancakeswap.finance/images/tokens/0xC9849E6fdB743d08fAeE3E34dd2D1bc69EA11a51.png"
     },
     {
       "name": "Alpaca",
@@ -123,12 +115,20 @@
       "logoURI": "https://pancakeswap.finance/images/tokens/0xA7f552078dcC247C2684336020c03648500C6d9F.png"
     },
     {
-      "name": "PancakeSwap Token",
-      "symbol": "CAKE",
-      "address": "0xa35062141Fa33BCA92Ce69FeD37D0E8908868AAe",
+      "name": "WBNB Token",
+      "symbol": "WBNB",
+      "address": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
       "chainId": 97,
       "decimals": 18,
-      "logoURI": "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png"
+      "logoURI": "https://pancakeswap.finance/images/tokens/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c.png"
+    },
+    {
+      "name": "Wakanda Inu Token",
+      "symbol": "WKD",
+      "address": "0x677e88192637BD63d5e8fA81F99DAbA95B13C118",
+      "chainId": 97,
+      "decimals": 9,
+      "logoURI": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0x5344C20FD242545F31723689662AC12b9556fC3d/logo.png"
     },
     {
       "name": "BUSD Token",
