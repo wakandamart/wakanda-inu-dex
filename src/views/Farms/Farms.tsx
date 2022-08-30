@@ -175,7 +175,7 @@ const Farms: React.FC = ({ children }) => {
         const { wkdRewardsApr, lpRewardsApr } = isActive
           ? getFarmApr(
               new BigNumber(farm.poolWeight),
-              new BigNumber(1),
+              wkdPrice,
               totalLiquidity,
               farm.lpAddresses[ChainId.BSC],
               regularCakePerBlock,
