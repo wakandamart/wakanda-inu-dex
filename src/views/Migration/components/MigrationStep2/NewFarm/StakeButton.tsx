@@ -102,7 +102,7 @@ const StakeButton: React.FC<StackedActionProps> = ({
       tokenName={lpSymbol}
       multiplier={multiplier}
       addLiquidityUrl={addLiquidityUrl}
-      cakePrice={cakePrice}
+      wkdPrice={cakePrice}
     />,
   )
   const [onPresentWithdraw] = useModal(

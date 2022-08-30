@@ -2,13 +2,13 @@ import { useContext } from 'react'
 import { FarmsPageLayout, FarmsContext } from 'views/Farms'
 import FarmCard from 'views/Farms/components/FarmCard/FarmCard'
 import { getDisplayApr } from 'views/Farms/components/getDisplayApr'
-import { usePriceCakeBusd } from 'state/farms/hooks'
+import { usePriceWkdBusd } from 'state/farms/hooks'
 import { useWeb3React } from '@web3-react/core'
 
 const FarmsHistoryPage = () => {
   const { account } = useWeb3React()
   const { chosenFarmsMemoized } = useContext(FarmsContext)
-  const cakePrice = usePriceCakeBusd()
+  const wkdPrice = usePriceWkdBusd()
 
   return (
     <>
@@ -17,7 +17,7 @@ const FarmsHistoryPage = () => {
           key={farm.pid}
           farm={farm}
           displayApr={getDisplayApr(farm.apr, farm.lpRewardsApr)}
-          cakePrice={cakePrice}
+          wkdPrice={wkdPrice}
           account={account}
           removed
         />
