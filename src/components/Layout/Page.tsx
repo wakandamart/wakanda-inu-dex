@@ -9,6 +9,7 @@ const StyledPage = styled(Container)`
   min-height: calc(100vh - 64px);
   padding-top: 16px;
   padding-bottom: 16px;
+  // background: ${({ theme }) => theme.colors.gradients.bubblegum};
 
   ${({ theme }) => theme.mediaQueries.sm} {
     padding-top: 24px;
@@ -20,6 +21,29 @@ const StyledPage = styled(Container)`
     padding-bottom: 32px;
   }
 `
+
+// const StyledPage = styled.div<{ $removePadding: boolean; $noMinHeight }>`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 100%;
+//   padding: ${({ $removePadding }) => ($removePadding ? '0' : '16px')};
+//   padding-bottom: 0;
+//   min-height: ${({ $noMinHeight }) => ($noMinHeight ? 'initial' : 'calc(100vh - 64px)')};
+//   background: ${({ theme }) => theme.colors.gradients.bubblegum};
+//   ${({ theme }) => theme.mediaQueries.xs} {
+//     background-size: auto;
+//   }
+//   ${({ theme }) => theme.mediaQueries.sm} {
+//     padding: ${({ $removePadding }) => ($removePadding ? '0' : '24px')};
+//     padding-bottom: 0;
+//   }
+//   ${({ theme }) => theme.mediaQueries.lg} {
+//     padding: ${({ $removePadding }) => ($removePadding ? '0' : '32px')};
+//     padding-bottom: 0;
+//     min-height: ${({ $noMinHeight }) => ($noMinHeight ? 'initial' : 'calc(100vh - 100px)')};
+//   }
+// `
 
 export const PageMeta: React.FC<{ symbol?: string }> = ({ symbol }) => {
   const {

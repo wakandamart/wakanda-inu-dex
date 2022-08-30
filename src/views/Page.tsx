@@ -12,7 +12,7 @@ const StyledPage = styled.div<{ $removePadding: boolean; $noMinHeight }>`
   padding: ${({ $removePadding }) => ($removePadding ? '0' : '16px')};
   padding-bottom: 0;
   min-height: ${({ $noMinHeight }) => ($noMinHeight ? 'initial' : 'calc(100vh - 64px)')};
-  background-image: url(${'/wakanda-inu/bg.jpg'});
+  // background-image: url(${'/wakanda-inu/bg.jpg'});
   background-position: 53% 0;
   background-size: cover;
   background-repeat: no-repeat;

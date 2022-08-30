@@ -42,7 +42,7 @@ interface DepositModalProps {
   apr?: number
   displayApr?: string
   addLiquidityUrl?: string
-  cakePrice?: BigNumber
+  wkdPrice?: BigNumber
 }
 
 const DepositModal: React.FC<DepositModalProps> = ({
@@ -57,7 +57,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
   lpLabel = '',
   apr,
   addLiquidityUrl,
-  cakePrice,
+  wkdPrice,
 }) => {
   const [val, setVal] = useState('')
   const [pendingTx, setPendingTx] = useState(false)
@@ -75,10 +75,10 @@ const DepositModal: React.FC<DepositModalProps> = ({
   const interestBreakdown = getInterestBreakdown({
     principalInUSD: !lpTokensToStake.isNaN() ? usdToStake.toNumber() : 0,
     apr,
-    earningTokenPrice: cakePrice.toNumber(),
+    earningTokenPrice: wkdPrice.toNumber(),
   })
 
-  const annualRoi = cakePrice.times(interestBreakdown[3])
+  const annualRoi = wkdPrice.times(interestBreakdown[3])
   const annualRoiAsNumber = annualRoi.toNumber()
   const formattedAnnualRoi = formatNumber(annualRoiAsNumber, annualRoi.gt(10000) ? 0 : 2, annualRoi.gt(10000) ? 0 : 2)
 
@@ -102,7 +102,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
         stakingTokenBalance={stakedBalance.plus(max)}
         stakingTokenSymbol={tokenName}
         stakingTokenPrice={lpPrice.toNumber()}
-        earningTokenPrice={cakePrice.toNumber()}
+        earningTokenPrice={wkdPrice.toNumber()}
         apr={apr}
         multiplier={multiplier}
         displayApr={displayApr}

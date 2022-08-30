@@ -13,7 +13,7 @@ export interface AprProps {
   lpSymbol: string
   tokenAddress?: string
   quoteTokenAddress?: string
-  cakePrice: BigNumber
+  wkdPrice: BigNumber
   originalValue: number
   hideButton?: boolean
 }
@@ -48,12 +48,14 @@ const Apr: React.FC<AprProps> = ({
   multiplier,
   tokenAddress,
   quoteTokenAddress,
-  cakePrice,
+  wkdPrice,
   originalValue,
   hideButton = false,
 }) => {
   const liquidityUrlPathParts = getLiquidityUrlPathParts({ quoteTokenAddress, tokenAddress })
   const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
+
+  console.log('originalValue: ', originalValue)
 
   return originalValue !== 0 ? (
     <Container>
@@ -64,7 +66,7 @@ const Apr: React.FC<AprProps> = ({
           lpSymbol={lpSymbol}
           lpLabel={lpLabel}
           multiplier={multiplier}
-          cakePrice={cakePrice}
+          wkdPrice={wkdPrice}
           apr={originalValue}
           displayApr={value}
           addLiquidityUrl={addLiquidityUrl}

@@ -1,16 +1,17 @@
-import masterchefABI from 'config/abi/masterchef.json'
+// import masterchefABI from 'config/abi/masterchef.json'
+import wkdLpPoolABI from 'config/abi/wkdLpPool.json'
 import chunk from 'lodash/chunk'
 import { multicallv2 } from 'utils/multicall'
 import { SerializedFarmConfig } from '../../config/constants/types'
 import { SerializedFarm } from '../types'
-import { getMasterChefAddress } from '../../utils/addressHelpers'
-import { getMasterchefContract } from '../../utils/contractHelpers'
+import { getMasterChefAddress, getWkdPoolAddress } from '../../utils/addressHelpers'
+import { getMasterchefContract, getWkdPoolContract } from '../../utils/contractHelpers'
 
-const masterChefAddress = getMasterChefAddress()
-const masterChefContract = getMasterchefContract()
+const wkdPoolAddress = getWkdPoolAddress()
+const wkdPoolContract = getWkdPoolContract()
 
 export const fetchMasterChefFarmPoolLength = async () => {
-  const poolLength = await masterChefContract.poolLength()
+  const poolLength = await wkdPoolContract.poolLength()
   return poolLength
 }
 
@@ -19,12 +20,12 @@ const masterChefFarmCalls = (farm: SerializedFarm) => {
   return pid || pid === 0
     ? [
         {
-          address: masterChefAddress,
+          address: wkdPoolAddress,
           name: 'poolInfo',
           params: [pid],
         },
         {
-          address: masterChefAddress,
+          address: wkdPoolAddress,
           name: 'totalRegularAllocPoint',
         },
       ]
@@ -37,7 +38,7 @@ export const fetchMasterChefData = async (farms: SerializedFarmConfig[]): Promis
   const masterChefAggregatedCalls = masterChefCalls
     .filter((masterChefCall) => masterChefCall[0] !== null && masterChefCall[1] !== null)
     .flat()
-  const masterChefMultiCallResult = await multicallv2(masterchefABI, masterChefAggregatedCalls)
+  const masterChefMultiCallResult = await multicallv2(wkdLpPoolABI, masterChefAggregatedCalls)
   const masterChefChunkedResultRaw = chunk(masterChefMultiCallResult, chunkSize)
   let masterChefChunkedResultCounter = 0
   return masterChefCalls.map((masterChefCall) => {

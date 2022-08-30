@@ -8,8 +8,9 @@ import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit'
 import stringify from 'fast-json-stable-stringify'
 import farmsConfig from 'config/constants/farms'
 import multicall from 'utils/multicall'
-import masterchefABI from 'config/abi/masterchef.json'
-import { getMasterChefAddress } from 'utils/addressHelpers'
+// import masterchefABI from 'config/abi/masterchef.json'
+import wkdPoolABI from 'config/abi/wkdLpPool.json'
+import { getMasterChefAddress, getWkdPoolAddress } from 'utils/addressHelpers'
 import { getBalanceAmount } from 'utils/formatBalance'
 import { ethersToBigNumber } from 'utils/bigNumber'
 import type { AppState } from 'state'
@@ -52,25 +53,32 @@ export const fetchFarmsPublicDataAsync = createAsyncThunk<
 >(
   'farms/fetchFarmsPublicDataAsync',
   async (pids) => {
-    const masterChefAddress = getMasterChefAddress()
+    // const masterChefAddress = getMasterChefAddress()
+    const wkdPoolAddress = getWkdPoolAddress()
     const calls = [
       {
-        address: masterChefAddress,
+        address: wkdPoolAddress,
         name: 'poolLength',
       },
       {
-        address: masterChefAddress,
-        name: 'cakePerBlock',
+        address: wkdPoolAddress,
+        name: 'wkdPerBlock',
         params: [true],
       },
     ]
-    const [[poolLength], [cakePerBlockRaw]] = await multicall(masterchefABI, calls)
+    const [[poolLength], [cakePerBlockRaw]] = await multicall(wkdPoolABI, calls)
     const regularCakePerBlock = getBalanceAmount(ethersToBigNumber(cakePerBlockRaw))
     const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
     const farmsCanFetch = farmsToFetch.filter((f) => poolLength.gt(f.pid))
 
     const farms = await fetchFarms(farmsCanFetch)
+
     const farmsWithPrices = getFarmsPrices(farms)
+    console.log('farms/fetchFarmsPublicDataAsync: ', [
+      farmsWithPrices,
+      poolLength.toNumber(),
+      regularCakePerBlock.toNumber(),
+    ])
 
     return [farmsWithPrices, poolLength.toNumber(), regularCakePerBlock.toNumber()]
   },

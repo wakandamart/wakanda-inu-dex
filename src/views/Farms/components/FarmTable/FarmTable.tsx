@@ -14,7 +14,7 @@ import { DesktopColumnSchema, FarmWithStakedValue } from '../types'
 export interface ITableProps {
   farms: FarmWithStakedValue[]
   userDataReady: boolean
-  cakePrice: BigNumber
+  wkdPrice: BigNumber
   sortColumn?: string
 }
 
@@ -64,7 +64,7 @@ const ScrollButtonContainer = styled.div`
   padding-bottom: 5px;
 `
 
-const FarmTable: React.FC<ITableProps> = ({ farms, cakePrice, userDataReady }) => {
+const FarmTable: React.FC<ITableProps> = ({ farms, wkdPrice, userDataReady }) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null)
   const { query } = useRouter()
   const { t } = useTranslation()
@@ -120,7 +120,7 @@ const FarmTable: React.FC<ITableProps> = ({ farms, cakePrice, userDataReady }) =
         lpSymbol: farm.lpSymbol,
         tokenAddress,
         quoteTokenAddress,
-        cakePrice,
+        wkdPrice,
         originalValue: farm.apr,
       },
       farm: {
@@ -130,7 +130,8 @@ const FarmTable: React.FC<ITableProps> = ({ farms, cakePrice, userDataReady }) =
         quoteToken: farm.quoteToken,
       },
       earned: {
-        earnings: getBalanceNumber(new BigNumber(farm.userData.earnings)),
+        // eslint-disable-next-line spaced-comment
+        earnings: getBalanceNumber(new BigNumber(farm.userData.earnings), 9), //wakanda token has decimal of 9
         pid: farm.pid,
       },
       liquidity: {

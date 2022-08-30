@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { darkColors, lightColors } from "../../theme/colors";
 import { Flex, Box } from "../Box";
 import { Text } from "../Text";
@@ -43,7 +43,14 @@ const MenuItem: React.FC<FooterProps> = ({
     <StyledFooter p={["40px 16px", null, "56px 40px 32px 40px"]} {...props} justifyContent="center">
       <Flex flexDirection="column" width={["100%", null, "1200px;"]}>
         <StyledIconMobileContainer display={["block", null, "none"]}>
-          <LogoWithTextIcon isDark width="130px" />
+          <StyledLink as="a" href="/" aria-label="WKDSwap home page">
+            <Flex className="icon" alignItems="center" height="32px">
+              <LogoIcon height="32px" className="icon-image" />
+              <Text bold color="primary" marginLeft={1}>
+                WKDSwap
+              </Text>
+            </Flex>
+          </StyledLink>
         </StyledIconMobileContainer>
         <Flex
           order={[2, null, 1]}
@@ -97,14 +104,14 @@ const MenuItem: React.FC<FooterProps> = ({
               currentLang={currentLang}
               langs={langs}
               setLang={setLang}
-              color={darkColors.textSubtle as keyof Colors}
+              color={darkColors.tertiary as keyof Colors}
               dropdownPosition="top-right"
             />
           </Flex>
           <Flex order={[1, null, 2]} mb={["24px", null, "0"]} justifyContent="space-between" alignItems="center">
             <Button
               as="a"
-              href="https://wakandaswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"
+              href="/swap?outputCurrency=0x5344C20FD242545F31723689662AC12b9556fC3d"
               target="_blank"
               scale="sm"
               endIcon={<ArrowForwardIcon color={lightColors.backgroundAlt} />}

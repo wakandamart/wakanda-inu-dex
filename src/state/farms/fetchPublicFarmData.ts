@@ -1,6 +1,6 @@
 import erc20 from 'config/abi/erc20.json'
 import chunk from 'lodash/chunk'
-import { getAddress, getMasterChefAddress } from 'utils/addressHelpers'
+import { getAddress, getMasterChefAddress, getWkdPoolAddress } from 'utils/addressHelpers'
 import { multicallv2 } from 'utils/multicall'
 import { SerializedFarm } from '../types'
 import { SerializedFarmConfig } from '../../config/constants/types'
@@ -25,7 +25,7 @@ const fetchFarmCalls = (farm: SerializedFarm) => {
     {
       address: lpAddress,
       name: 'balanceOf',
-      params: [getMasterChefAddress()],
+      params: [getWkdPoolAddress()],
     },
     // Total supply of LP tokens
     {
@@ -49,5 +49,6 @@ export const fetchPublicFarmsData = async (farms: SerializedFarmConfig[]): Promi
   const farmCalls = farms.flatMap((farm) => fetchFarmCalls(farm))
   const chunkSize = farmCalls.length / farms.length
   const farmMultiCallResult = await multicallv2(erc20, farmCalls)
+
   return chunk(farmMultiCallResult, chunkSize)
 }

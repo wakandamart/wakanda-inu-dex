@@ -39,6 +39,7 @@ import {
   getZapAddress,
   getCakeFlexibleSideVaultAddress,
   getPredictionsV1Address,
+  getWkdPoolAddress,
 } from 'utils/addressHelpers'
 
 // ABI
@@ -55,6 +56,7 @@ import ifoV2Abi from 'config/abi/ifoV2.json'
 import pointCenterIfo from 'config/abi/pointCenterIfo.json'
 import lotteryV2Abi from 'config/abi/lotteryV2.json'
 import masterChef from 'config/abi/masterchef.json'
+import wkdLpPool from 'config/abi/wkdLpPool.json'
 import masterChefV1 from 'config/abi/masterchefV1.json'
 import sousChef from 'config/abi/sousChef.json'
 import sousChefV2 from 'config/abi/sousChefV2.json'
@@ -133,6 +135,7 @@ import type {
   PredictionsV1,
 } from 'config/abi/types'
 import { ChainId } from '@pancakeswap/sdk'
+import { WkdLpPool } from 'config/abi/types/WkdLpPool'
 
 export const getContract = (abi: any, address: string, signer?: Signer | Provider) => {
   const signerOrProvider = signer ?? bscRpcProvider
@@ -187,6 +190,9 @@ export const getBunnySpecialContract = (signer?: Signer | Provider) => {
 }
 export const getLotteryV2Contract = (signer?: Signer | Provider) => {
   return getContract(lotteryV2Abi, getLotteryV2Address(), signer) as LotteryV2
+}
+export const getWkdPoolContract = (signer?: Signer | Provider) => {
+  return getContract(wkdLpPool, getWkdPoolAddress(), signer) as WkdLpPool
 }
 export const getMasterchefContract = (signer?: Signer | Provider) => {
   return getContract(masterChef, getMasterChefAddress(), signer) as Masterchef

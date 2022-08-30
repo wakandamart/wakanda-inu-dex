@@ -12,6 +12,7 @@ import {
   farmSelector,
   farmFromLpSymbolSelector,
   priceCakeFromPidSelector,
+  priceWkdFromPidSelector,
   makeBusdPriceFromPidSelector,
   makeUserFarmFromPidSelector,
   makeLpTokenPriceFromLpSymbolSelector,
@@ -51,8 +52,8 @@ export const usePollFarmsWithUserData = () => {
  * 3 = BUSD-BNB LP
  */
 const coreFarmPIDs = {
-  56: [2, 3],
-  97: [1, 2],
+  56: [0],
+  97: [0],
 }
 
 export const usePollCoreFarmData = () => {
@@ -104,4 +105,8 @@ export const useLpTokenPrice = (symbol: string) => {
  */
 export const usePriceCakeBusd = (): BigNumber => {
   return useSelector(priceCakeFromPidSelector)
+}
+
+export const usePriceWkdBusd = (): BigNumber => {
+  return useSelector(priceWkdFromPidSelector)
 }

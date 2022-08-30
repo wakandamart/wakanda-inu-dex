@@ -25,28 +25,29 @@ export const getPoolApr = (
 /**
  * Get farm APR value in %
  * @param poolWeight allocationPoint / totalAllocationPoint
- * @param cakePriceUsd Cake price in USD
+ * @param wkdPriceUsd wkd price in USD
  * @param poolLiquidityUsd Total pool liquidity in USD
  * @param farmAddress Farm Address
  * @returns Farm Apr
  */
 export const getFarmApr = (
   poolWeight: BigNumber,
-  cakePriceUsd: BigNumber,
+  wkdPriceUsd: BigNumber,
   poolLiquidityUsd: BigNumber,
   farmAddress: string,
-  regularCakePerBlock: number,
-): { cakeRewardsApr: number; lpRewardsApr: number } => {
-  const yearlyCakeRewardAllocation = poolWeight
-    ? poolWeight.times(BLOCKS_PER_YEAR * regularCakePerBlock)
+  regularWkdPerBlock: number,
+): { wkdRewardsApr: number; lpRewardsApr: number } => {
+  const yearlyWkdRewardAllocation = poolWeight
+    ? poolWeight.times(BLOCKS_PER_YEAR * regularWkdPerBlock)
     : new BigNumber(NaN)
-  const cakeRewardsApr = yearlyCakeRewardAllocation.times(cakePriceUsd).div(poolLiquidityUsd).times(100)
-  let cakeRewardsAprAsNumber = null
-  if (!cakeRewardsApr.isNaN() && cakeRewardsApr.isFinite()) {
-    cakeRewardsAprAsNumber = cakeRewardsApr.toNumber()
+  const wkdRewardsApr = yearlyWkdRewardAllocation.times(wkdPriceUsd).div(poolLiquidityUsd).times(100)
+  let wkdRewardsAprAsNumber = null
+
+  if (!wkdRewardsApr.isNaN() && wkdRewardsApr.isFinite()) {
+    wkdRewardsAprAsNumber = wkdRewardsApr.toNumber()
   }
   const lpRewardsApr = lpAprs[farmAddress?.toLocaleLowerCase()] ?? 0
-  return { cakeRewardsApr: cakeRewardsAprAsNumber, lpRewardsApr }
+  return { wkdRewardsApr: wkdRewardsAprAsNumber, lpRewardsApr }
 }
 
 export default null

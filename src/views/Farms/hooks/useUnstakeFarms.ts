@@ -1,15 +1,15 @@
 import { useCallback } from 'react'
 import { unstakeFarm } from 'utils/calls'
-import { useMasterchef } from 'hooks/useContract'
+import { useMasterchef, useWkdLpPool } from 'hooks/useContract'
 
 const useUnstakeFarms = (pid: number) => {
-  const masterChefContract = useMasterchef()
+  const wkdPoolContract = useWkdLpPool()
 
   const handleUnstake = useCallback(
     async (amount: string) => {
-      return unstakeFarm(masterChefContract, pid, amount)
+      return unstakeFarm(wkdPoolContract, pid, amount)
     },
-    [masterChefContract, pid],
+    [wkdPoolContract, pid],
   )
 
   return { onUnstake: handleUnstake }

@@ -23,6 +23,7 @@ const fetchFarms = async (farmsToFetch: SerializedFarmConfig[]): Promise<Seriali
     ] = farmResult[index]
 
     const [info, totalRegularAllocPoint] = masterChefResult[index]
+    console.log('ddddddddddd: ', info, totalRegularAllocPoint)
 
     const lpTotalSupplyBN = new BigNumber(lpTotalSupply)
 
@@ -41,6 +42,19 @@ const fetchFarms = async (farmsToFetch: SerializedFarmConfig[]): Promise<Seriali
 
     const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO
     const poolWeight = totalRegularAllocPoint ? allocPoint.div(new BigNumber(totalRegularAllocPoint)) : BIG_ZERO
+
+    console.log('xxxxxxxxxxx: ', {
+      ...farm,
+      token: farm.token,
+      quoteToken: farm.quoteToken,
+      tokenAmountTotal: tokenAmountTotal.toJSON(),
+      quoteTokenAmountTotal: quoteTokenAmountTotal.toJSON(),
+      lpTotalSupply: lpTotalSupplyBN.toJSON(),
+      lpTotalInQuoteToken: lpTotalInQuoteToken.toJSON(),
+      tokenPriceVsQuote: quoteTokenAmountTotal.div(tokenAmountTotal).toJSON(),
+      poolWeight: poolWeight.toJSON(),
+      multiplier: `${allocPoint.div(100).toString()}X`,
+    })
 
     return {
       ...farm,

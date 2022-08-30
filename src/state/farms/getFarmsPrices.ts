@@ -85,13 +85,35 @@ const getFarmQuoteTokenPrice = (
   return BIG_ZERO
 }
 
+// const getFarmsPrices = (farms: SerializedFarm[]) => {
+//   console.log('revisit this file and do the needful!!!')
+
+//   const bnbBusdFarm = farms.find((farm) => farm.token.symbol === 'BUSD' && farm.quoteToken.symbol === 'WBNB')
+//   const bnbPriceBusd = bnbBusdFarm.tokenPriceVsQuote ? BIG_ONE.div(bnbBusdFarm.tokenPriceVsQuote) : BIG_ZERO
+//   const farmsWithPrices = farms.map((farm) => {
+//     // const quoteTokenFarm = getFarmFromTokenSymbol(farms, farm.quoteToken.symbol)
+//     // const tokenPriceBusd = getFarmBaseTokenPrice(farm, quoteTokenFarm, bnbPriceBusd)
+//     // const quoteTokenPriceBusd = getFarmQuoteTokenPrice(farm, quoteTokenFarm, bnbPriceBusd)
+
+//     return {
+//       ...farm,
+//       tokenPriceBusd: new BigNumber(1).toJSON(),
+//       quoteTokenPriceBusd: new BigNumber(1).toJSON(),
+//     }
+//   })
+
+//   return farmsWithPrices
+// }
+
+// ======================================================
+
 const getFarmsPrices = (farms: SerializedFarm[]) => {
-  const bnbBusdFarm = farms.find((farm) => farm.token.symbol === 'BUSD' && farm.quoteToken.symbol === 'WBNB')
-  const bnbPriceBusd = bnbBusdFarm.tokenPriceVsQuote ? BIG_ONE.div(bnbBusdFarm.tokenPriceVsQuote) : BIG_ZERO
+  const wkdBusdFarm = farms.find((farm) => farm.token.symbol === 'WKD' && farm.quoteToken.symbol === 'BUSD')
+  const WKDPriceBusd = new BigNumber(wkdBusdFarm.tokenPriceVsQuote)
   const farmsWithPrices = farms.map((farm) => {
     const quoteTokenFarm = getFarmFromTokenSymbol(farms, farm.quoteToken.symbol)
-    const tokenPriceBusd = getFarmBaseTokenPrice(farm, quoteTokenFarm, bnbPriceBusd)
-    const quoteTokenPriceBusd = getFarmQuoteTokenPrice(farm, quoteTokenFarm, bnbPriceBusd)
+    const tokenPriceBusd = getFarmBaseTokenPrice(farm, quoteTokenFarm, WKDPriceBusd)
+    const quoteTokenPriceBusd = getFarmQuoteTokenPrice(farm, quoteTokenFarm, WKDPriceBusd)
 
     return {
       ...farm,
@@ -99,6 +121,8 @@ const getFarmsPrices = (farms: SerializedFarm[]) => {
       quoteTokenPriceBusd: quoteTokenPriceBusd.toJSON(),
     }
   })
+
+  // ===================================================
 
   return farmsWithPrices
 }

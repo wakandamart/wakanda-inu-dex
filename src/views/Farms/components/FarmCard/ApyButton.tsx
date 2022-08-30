@@ -19,7 +19,7 @@ export interface ApyButtonProps {
   lpSymbol: string
   lpLabel?: string
   multiplier: string
-  cakePrice?: BigNumber
+  wkdPrice?: BigNumber
   apr?: number
   displayApr?: string
   addLiquidityUrl?: string
@@ -30,7 +30,7 @@ const ApyButton: React.FC<ApyButtonProps> = ({
   pid,
   lpLabel,
   lpSymbol,
-  cakePrice,
+  wkdPrice,
   apr,
   multiplier,
   displayApr,
@@ -39,13 +39,15 @@ const ApyButton: React.FC<ApyButtonProps> = ({
   const { t } = useTranslation()
   const lpPrice = useLpTokenPrice(lpSymbol)
   const { tokenBalance, stakedBalance } = useFarmUser(pid)
+  console.log('displayApr: ', displayApr)
+
   const [onPresentApyModal] = useModal(
     <RoiCalculatorModal
       linkLabel={t('Get %symbol%', { symbol: lpLabel })}
       stakingTokenBalance={stakedBalance.plus(tokenBalance)}
       stakingTokenSymbol={lpSymbol}
       stakingTokenPrice={lpPrice.toNumber()}
-      earningTokenPrice={cakePrice.toNumber()}
+      earningTokenPrice={wkdPrice?.toNumber()}
       apr={apr}
       multiplier={multiplier}
       displayApr={displayApr}

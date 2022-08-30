@@ -36,6 +36,8 @@ const DetailsSection: React.FC<ExpandableSectionProps> = ({
     currentLanguage: { locale },
   } = useTranslation()
 
+  console.log('*****totalValueFormatted: ', totalValueFormatted)
+
   return (
     <Wrapper>
       {isCommunity && auctionHostingEndDate && (
@@ -58,7 +60,7 @@ const DetailsSection: React.FC<ExpandableSectionProps> = ({
         <StyledLinkExternal href={addLiquidityUrl}>{t('Get %symbol%', { symbol: lpLabel })}</StyledLinkExternal>
       )}
       <StyledLinkExternal href={bscScanAddress}>{t('View Contract')}</StyledLinkExternal>
-      <StyledLinkExternal href={infoAddress}>{t('See Pair Info')}</StyledLinkExternal>
+      {/* <StyledLinkExternal href={infoAddress}>{t('See Pair Info')}</StyledLinkExternal> */}
     </Wrapper>
   )
 }

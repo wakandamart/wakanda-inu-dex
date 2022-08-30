@@ -95,6 +95,16 @@ const config = {
         destination: '/swap',
         permanent: true,
       },
+      // {
+      //   source: '/pools',
+      //   destination: '/farms',
+      //   permanent: true,
+      // },
+      {
+        source: '/ifo',
+        destination: '/swap',
+        permanent: true,
+      },
       {
         source: '/send',
         destination: '/swap',

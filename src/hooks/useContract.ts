@@ -10,6 +10,7 @@ import {
   getIfoV1Contract,
   getIfoV2Contract,
   getIfoV3Contract,
+  getWkdPoolContract,
   getMasterchefContract,
   getMasterchefV1Contract,
   getPointCenterIfoContract,
@@ -142,6 +143,15 @@ export const useProfileContract = (withSignerIfPossible = true) => {
 export const useLotteryV2Contract = () => {
   const { library } = useActiveWeb3React()
   return useMemo(() => getLotteryV2Contract(library.getSigner()), [library])
+}
+
+export const useWkdLpPool = (withSignerIfPossible = true) => {
+  const { library, account } = useActiveWeb3React()
+  const signer = useMemo(
+    () => (withSignerIfPossible ? getProviderOrSigner(library, account) : null),
+    [withSignerIfPossible, library, account],
+  )
+  return useMemo(() => getWkdPoolContract(signer), [signer])
 }
 
 export const useMasterchef = (withSignerIfPossible = true) => {
