@@ -117,7 +117,7 @@ const NUMBER_OF_FARMS_VISIBLE = 12
 const Farms: React.FC = ({ children }) => {
   const { pathname, query: urlQuery } = useRouter()
   const { t } = useTranslation()
-  const { data: farmsLP, userDataLoaded, poolLength, regularCakePerBlock } = useFarms()
+  const { data: farmsLP, userDataLoaded, poolLength, regularWkdPerBlock } = useFarms()
 
   const wkdPrice = usePriceWkdBusd()
 
@@ -178,7 +178,7 @@ const Farms: React.FC = ({ children }) => {
               wkdPrice,
               totalLiquidity,
               farm.lpAddresses[ChainId.BSC],
-              regularCakePerBlock,
+              regularWkdPerBlock,
             )
           : { wkdRewardsApr: 0, lpRewardsApr: 0 }
 
@@ -193,7 +193,7 @@ const Farms: React.FC = ({ children }) => {
       }
       return farmsToDisplayWithAPR
     },
-    [wkdPrice, query, isActive, regularCakePerBlock],
+    [wkdPrice, query, isActive, regularWkdPerBlock],
   )
 
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {

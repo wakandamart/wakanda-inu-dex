@@ -66,21 +66,16 @@ export const fetchFarmsPublicDataAsync = createAsyncThunk<
         params: [true],
       },
     ]
-    const [[poolLength], [cakePerBlockRaw]] = await multicall(wkdPoolABI, calls)
-    const regularCakePerBlock = getBalanceAmount(ethersToBigNumber(cakePerBlockRaw), 9) // wkd is in 9 decimal
+    const [[poolLength], [wkdPerBlockRaw]] = await multicall(wkdPoolABI, calls)
+    const regularWkdPerBlock = getBalanceAmount(ethersToBigNumber(wkdPerBlockRaw), 9) // wkd is in 9 decimal
     const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
     const farmsCanFetch = farmsToFetch.filter((f) => poolLength.gt(f.pid))
 
     const farms = await fetchFarms(farmsCanFetch)
 
     const farmsWithPrices = getFarmsPrices(farms)
-    console.log('farms/fetchFarmsPublicDataAsync: ', [
-      farmsWithPrices,
-      poolLength.toNumber(),
-      regularCakePerBlock.toNumber(),
-    ])
 
-    return [farmsWithPrices, poolLength.toNumber(), regularCakePerBlock.toNumber()]
+    return [farmsWithPrices, poolLength.toNumber(), regularWkdPerBlock.toNumber()]
   },
   {
     condition: (arg, { getState }) => {
@@ -181,13 +176,13 @@ export const farmsSlice = createSlice({
     })
     // Update farms with live data
     builder.addCase(fetchFarmsPublicDataAsync.fulfilled, (state, action) => {
-      const [farmPayload, poolLength, regularCakePerBlock] = action.payload
+      const [farmPayload, poolLength, regularWkdPerBlock] = action.payload
       state.data = state.data.map((farm) => {
         const liveFarmData = farmPayload.find((farmData) => farmData.pid === farm.pid)
         return { ...farm, ...liveFarmData }
       })
       state.poolLength = poolLength
-      state.regularCakePerBlock = regularCakePerBlock
+      state.regularWkdPerBlock = regularWkdPerBlock
     })
 
     // Update farms with user data

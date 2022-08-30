@@ -12,7 +12,7 @@ import { FarmWithStakedValue } from '../../Farms/components/types'
 
 const useGetTopFarmsByApr = (isIntersecting: boolean) => {
   const dispatch = useAppDispatch()
-  const { data: farms, regularCakePerBlock } = useFarms()
+  const { data: farms, regularWkdPerBlock } = useFarms()
   const [fetchStatus, setFetchStatus] = useState(FetchStatus.Idle)
   const [topFarms, setTopFarms] = useState<FarmWithStakedValue[]>([null, null, null, null, null])
   const cakePriceBusd = usePriceCakeBusd()
@@ -52,7 +52,7 @@ const useGetTopFarmsByApr = (isIntersecting: boolean) => {
           cakePriceBusd,
           totalLiquidity,
           farm.lpAddresses[ChainId.BSC],
-          regularCakePerBlock,
+          regularWkdPerBlock,
         )
         return { ...farm, apr: cakeRewardsApr, lpRewardsApr }
       })
@@ -64,7 +64,7 @@ const useGetTopFarmsByApr = (isIntersecting: boolean) => {
     if (fetchStatus === FetchStatus.Fetched && !topFarms[0]) {
       getTopFarmsByApr(farms)
     }
-  }, [setTopFarms, farms, fetchStatus, cakePriceBusd, topFarms, regularCakePerBlock])
+  }, [setTopFarms, farms, fetchStatus, cakePriceBusd, topFarms, regularWkdPerBlock])
 
   return { topFarms }
 }
