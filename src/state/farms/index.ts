@@ -67,7 +67,7 @@ export const fetchFarmsPublicDataAsync = createAsyncThunk<
       },
     ]
     const [[poolLength], [cakePerBlockRaw]] = await multicall(wkdPoolABI, calls)
-    const regularCakePerBlock = getBalanceAmount(ethersToBigNumber(cakePerBlockRaw))
+    const regularCakePerBlock = getBalanceAmount(ethersToBigNumber(cakePerBlockRaw), 9) // wkd is in 9 decimal
     const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
     const farmsCanFetch = farmsToFetch.filter((f) => poolLength.gt(f.pid))
 
