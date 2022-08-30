@@ -39,7 +39,6 @@ const ApyButton: React.FC<ApyButtonProps> = ({
   const { t } = useTranslation()
   const lpPrice = useLpTokenPrice(lpSymbol)
   const { tokenBalance, stakedBalance } = useFarmUser(pid)
-  console.log('displayApr: ', displayApr)
 
   const [onPresentApyModal] = useModal(
     <RoiCalculatorModal

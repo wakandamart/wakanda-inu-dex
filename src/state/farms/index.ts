@@ -10,7 +10,7 @@ import farmsConfig from 'config/constants/farms'
 import multicall from 'utils/multicall'
 // import masterchefABI from 'config/abi/masterchef.json'
 import wkdPoolABI from 'config/abi/wkdLpPool.json'
-import { getMasterChefAddress, getWkdPoolAddress } from 'utils/addressHelpers'
+import { getWkdPoolAddress } from 'utils/addressHelpers'
 import { getBalanceAmount } from 'utils/formatBalance'
 import { ethersToBigNumber } from 'utils/bigNumber'
 import type { AppState } from 'state'
@@ -23,7 +23,7 @@ import {
   fetchFarmUserStakedBalances,
 } from './fetchFarmUser'
 import { SerializedFarmsState, SerializedFarm } from '../types'
-import { fetchMasterChefFarmPoolLength } from './fetchMasterChefData'
+import { fetchWkdLpPoolFarmPoolLength } from './fetchWkdLpPoolData'
 import { resetUserState } from '../global/actions'
 
 const noAccountFarmConfig = farmsConfig.map((farm) => ({
@@ -106,7 +106,7 @@ export const fetchFarmUserDataAsync = createAsyncThunk<
 >(
   'farms/fetchFarmUserDataAsync',
   async ({ account, pids }) => {
-    const poolLength = await fetchMasterChefFarmPoolLength()
+    const poolLength = await fetchWkdLpPoolFarmPoolLength()
     const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
     const farmsCanFetch = farmsToFetch.filter((f) => poolLength.gt(f.pid))
     const [userFarmAllowances, userFarmTokenBalances, userStakedBalances, userFarmEarnings] = await Promise.all([

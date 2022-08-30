@@ -3,13 +3,13 @@ import BigNumber from 'bignumber.js'
 import { getFullDecimalMultiplier } from 'utils/getFullDecimalMultiplier'
 import { BIG_ZERO, BIG_TWO } from '../../utils/bigNumber'
 import { fetchPublicFarmsData } from './fetchPublicFarmData'
-import { fetchMasterChefData } from './fetchMasterChefData'
+import { fetchwkdLpPoolData } from './fetchWkdLpPoolData'
 import { SerializedFarm } from '../types'
 
 const fetchFarms = async (farmsToFetch: SerializedFarmConfig[]): Promise<SerializedFarm[]> => {
-  const [farmResult, masterChefResult] = await Promise.all([
+  const [farmResult, wkdLpPoolResult] = await Promise.all([
     fetchPublicFarmsData(farmsToFetch),
-    fetchMasterChefData(farmsToFetch),
+    fetchwkdLpPoolData(farmsToFetch),
   ])
 
   return farmsToFetch.map((farm, index) => {
@@ -22,8 +22,7 @@ const fetchFarms = async (farmsToFetch: SerializedFarmConfig[]): Promise<Seriali
       [quoteTokenDecimals],
     ] = farmResult[index]
 
-    const [info, totalRegularAllocPoint] = masterChefResult[index]
-    console.log('ddddddddddd: ', info, totalRegularAllocPoint)
+    const [info, totalRegularAllocPoint] = wkdLpPoolResult[index]
 
     const lpTotalSupplyBN = new BigNumber(lpTotalSupply)
 
@@ -42,19 +41,6 @@ const fetchFarms = async (farmsToFetch: SerializedFarmConfig[]): Promise<Seriali
 
     const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO
     const poolWeight = totalRegularAllocPoint ? allocPoint.div(new BigNumber(totalRegularAllocPoint)) : BIG_ZERO
-
-    console.log('xxxxxxxxxxx: ', {
-      ...farm,
-      token: farm.token,
-      quoteToken: farm.quoteToken,
-      tokenAmountTotal: tokenAmountTotal.toJSON(),
-      quoteTokenAmountTotal: quoteTokenAmountTotal.toJSON(),
-      lpTotalSupply: lpTotalSupplyBN.toJSON(),
-      lpTotalInQuoteToken: lpTotalInQuoteToken.toJSON(),
-      tokenPriceVsQuote: quoteTokenAmountTotal.div(tokenAmountTotal).toJSON(),
-      poolWeight: poolWeight.toJSON(),
-      multiplier: `${allocPoint.div(100).toString()}X`,
-    })
 
     return {
       ...farm,
