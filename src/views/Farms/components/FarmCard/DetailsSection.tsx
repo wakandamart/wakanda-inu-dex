@@ -36,8 +36,6 @@ const DetailsSection: React.FC<ExpandableSectionProps> = ({
     currentLanguage: { locale },
   } = useTranslation()
 
-  console.log('*****totalValueFormatted: ', totalValueFormatted)
-
   return (
     <Wrapper>
       {isCommunity && auctionHostingEndDate && (
