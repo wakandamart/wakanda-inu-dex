@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import multicall from 'utils/multicall'
 // import { getMasterChefAddress } from 'utils/addressHelpers'
-import { getWkdPoolAddress } from 'utils/addressHelpers'
+import { getWkdLpPoolAddress } from 'utils/addressHelpers'
 // import masterChefABI from 'config/abi/masterchef.json'
 import wkdLpPoolABI from 'config/abi/wkdLpPool.json'
 import { farmsConfig, FAST_INTERVAL } from 'config/constants'
@@ -29,7 +29,7 @@ const useFarmsWithBalance = () => {
     async () => {
       const farmsCanFetch = farmsConfig.filter((f) => poolLength > f.pid)
       const calls = farmsCanFetch.map((farm) => ({
-        address: getWkdPoolAddress(),
+        address: getWkdLpPoolAddress(),
         name: 'pendingWkd',
         params: [farm.pid, account],
       }))

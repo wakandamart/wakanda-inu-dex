@@ -9,8 +9,8 @@ import stringify from 'fast-json-stable-stringify'
 import farmsConfig from 'config/constants/farms'
 import multicall from 'utils/multicall'
 // import masterchefABI from 'config/abi/masterchef.json'
-import wkdPoolABI from 'config/abi/wkdLpPool.json'
-import { getWkdPoolAddress } from 'utils/addressHelpers'
+import wkdLpPoolABI from 'config/abi/wkdLpPool.json'
+import { getWkdLpPoolAddress } from 'utils/addressHelpers'
 import { getBalanceAmount } from 'utils/formatBalance'
 import { ethersToBigNumber } from 'utils/bigNumber'
 import type { AppState } from 'state'
@@ -54,19 +54,19 @@ export const fetchFarmsPublicDataAsync = createAsyncThunk<
   'farms/fetchFarmsPublicDataAsync',
   async (pids) => {
     // const masterChefAddress = getMasterChefAddress()
-    const wkdPoolAddress = getWkdPoolAddress()
+    const wkdLpPoolAddress = getWkdLpPoolAddress()
     const calls = [
       {
-        address: wkdPoolAddress,
+        address: wkdLpPoolAddress,
         name: 'poolLength',
       },
       {
-        address: wkdPoolAddress,
+        address: wkdLpPoolAddress,
         name: 'wkdPerBlock',
         params: [true],
       },
     ]
-    const [[poolLength], [wkdPerBlockRaw]] = await multicall(wkdPoolABI, calls)
+    const [[poolLength], [wkdPerBlockRaw]] = await multicall(wkdLpPoolABI, calls)
     const regularWkdPerBlock = getBalanceAmount(ethersToBigNumber(wkdPerBlockRaw), 9) // wkd is in 9 decimal
     const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
     const farmsCanFetch = farmsToFetch.filter((f) => poolLength.gt(f.pid))

@@ -5,11 +5,11 @@ import { useMasterchef, useWkdLpPool } from 'hooks/useContract'
 import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
 
 const useApproveFarm = (lpContract: Contract) => {
-  const wkdPoolContract = useWkdLpPool()
+  const wkdLpPoolContract = useWkdLpPool()
   const { callWithGasPrice } = useCallWithGasPrice()
   const handleApprove = useCallback(async () => {
-    return callWithGasPrice(lpContract, 'approve', [wkdPoolContract.address, MaxUint256])
-  }, [lpContract, wkdPoolContract, callWithGasPrice])
+    return callWithGasPrice(lpContract, 'approve', [wkdLpPoolContract.address, MaxUint256])
+  }, [lpContract, wkdLpPoolContract, callWithGasPrice])
 
   return { onApprove: handleApprove }
 }

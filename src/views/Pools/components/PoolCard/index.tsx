@@ -20,6 +20,8 @@ const PoolCard: React.FC<{ pool: DeserializedPool; account: string }> = ({ pool,
 
   const isCakePool = earningToken.symbol === 'CAKE' && stakingToken.symbol === 'CAKE'
 
+  console.log('sweet', pool)
+
   return (
     <StyledCard
       isFinished={isFinished && sousId !== 0}

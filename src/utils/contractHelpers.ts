@@ -39,7 +39,7 @@ import {
   getZapAddress,
   getCakeFlexibleSideVaultAddress,
   getPredictionsV1Address,
-  getWkdPoolAddress,
+  getWkdLpPoolAddress,
 } from 'utils/addressHelpers'
 
 // ABI
@@ -191,8 +191,8 @@ export const getBunnySpecialContract = (signer?: Signer | Provider) => {
 export const getLotteryV2Contract = (signer?: Signer | Provider) => {
   return getContract(lotteryV2Abi, getLotteryV2Address(), signer) as LotteryV2
 }
-export const getWkdPoolContract = (signer?: Signer | Provider) => {
-  return getContract(wkdLpPool, getWkdPoolAddress(), signer) as WkdLpPool
+export const getWkdLpPoolContract = (signer?: Signer | Provider) => {
+  return getContract(wkdLpPool, getWkdLpPoolAddress(), signer) as WkdLpPool
 }
 export const getMasterchefContract = (signer?: Signer | Provider) => {
   return getContract(masterChef, getMasterChefAddress(), signer) as Masterchef

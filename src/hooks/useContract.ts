@@ -10,7 +10,7 @@ import {
   getIfoV1Contract,
   getIfoV2Contract,
   getIfoV3Contract,
-  getWkdPoolContract,
+  getWkdLpPoolContract,
   getMasterchefContract,
   getMasterchefV1Contract,
   getPointCenterIfoContract,
@@ -151,7 +151,7 @@ export const useWkdLpPool = (withSignerIfPossible = true) => {
     () => (withSignerIfPossible ? getProviderOrSigner(library, account) : null),
     [withSignerIfPossible, library, account],
   )
-  return useMemo(() => getWkdPoolContract(signer), [signer])
+  return useMemo(() => getWkdLpPoolContract(signer), [signer])
 }
 
 export const useMasterchef = (withSignerIfPossible = true) => {

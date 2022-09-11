@@ -3,13 +3,13 @@ import { stakeFarm } from 'utils/calls'
 import { useMasterchef, useWkdLpPool } from 'hooks/useContract'
 
 const useStakeFarms = (pid: number) => {
-  const wkdPoolContract = useWkdLpPool()
+  const wkdLpPoolContract = useWkdLpPool()
 
   const handleStake = useCallback(
     async (amount: string) => {
-      return stakeFarm(wkdPoolContract, pid, amount)
+      return stakeFarm(wkdLpPoolContract, pid, amount)
     },
-    [wkdPoolContract, pid],
+    [wkdLpPoolContract, pid],
   )
 
   return { onStake: handleStake }

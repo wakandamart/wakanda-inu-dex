@@ -1,5 +1,5 @@
 export default {
-  wkdPool: {
+  wkdLpPool: {
     97: '0x4c07D937C2A01fF9382579DDC098A343cd599384',
     56: '0x23459CA18cA4323356a2aC9C4d8297417798757A',
   },

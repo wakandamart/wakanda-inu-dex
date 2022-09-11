@@ -3,13 +3,13 @@ import { unstakeFarm } from 'utils/calls'
 import { useMasterchef, useWkdLpPool } from 'hooks/useContract'
 
 const useUnstakeFarms = (pid: number) => {
-  const wkdPoolContract = useWkdLpPool()
+  const wkdLpPoolContract = useWkdLpPool()
 
   const handleUnstake = useCallback(
     async (amount: string) => {
-      return unstakeFarm(wkdPoolContract, pid, amount)
+      return unstakeFarm(wkdLpPoolContract, pid, amount)
     },
-    [wkdPoolContract, pid],
+    [wkdLpPoolContract, pid],
   )
 
   return { onUnstake: handleUnstake }

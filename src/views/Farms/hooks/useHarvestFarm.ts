@@ -3,11 +3,11 @@ import { harvestFarm } from 'utils/calls'
 import { useMasterchef, useWkdLpPool } from 'hooks/useContract'
 
 const useHarvestFarm = (farmPid: number) => {
-  const wkdPoolContract = useWkdLpPool()
+  const wkdLpPoolContract = useWkdLpPool()
 
   const handleHarvest = useCallback(async () => {
-    return harvestFarm(wkdPoolContract, farmPid)
-  }, [farmPid, wkdPoolContract])
+    return harvestFarm(wkdLpPoolContract, farmPid)
+  }, [farmPid, wkdLpPoolContract])
 
   return { onReward: handleHarvest }
 }
