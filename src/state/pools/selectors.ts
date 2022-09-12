@@ -35,8 +35,12 @@ export const poolsWithVaultSelector = createSelector(
   ],
   (poolsWithUserDataLoading, deserializedLockedCakeVault, deserializedFlexibleSideCakeVault) => {
     const { pools, userDataLoaded } = poolsWithUserDataLoading
+    console.log('______', pools)
+
     const cakePool = pools.find((pool) => !pool.isFinished && pool.sousId === 0)
     const withoutCakePool = pools.filter((pool) => pool.sousId !== 0)
+
+    console.log('come back here to do the needful')
 
     const cakeAutoVault = {
       ...cakePool,
