@@ -162,6 +162,8 @@ const Pools: React.FC = () => {
   const { t } = useTranslation()
   const { account } = useWeb3React()
   const { pools, userDataLoaded } = usePoolsWithVault()
+  console.log('ggggggg: ', pools)
+
   const [stakedOnly, setStakedOnly] = useUserPoolStakedOnly()
   const [viewMode, setViewMode] = useUserPoolsViewMode()
   const [numberOfPoolsVisible, setNumberOfPoolsVisible] = useState(NUMBER_OF_POOLS_VISIBLE)

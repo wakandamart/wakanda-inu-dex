@@ -90,6 +90,7 @@ export const fetchPoolsStakingLimits = async (
   const poolStakingResultRaw = await multicallv2(sousChefV2, poolStakingCalls, { requireSuccess: false })
   const chunkSize = poolStakingCalls.length / validPools.length
   const poolStakingChunkedResultRaw = chunk(poolStakingResultRaw.flat(), chunkSize)
+
   return poolStakingChunkedResultRaw.reduce((accum, stakingLimitRaw, index) => {
     const hasUserLimit = stakingLimitRaw[0]
     const stakingLimit = hasUserLimit && stakingLimitRaw[1] ? new BigNumber(stakingLimitRaw[1].toString()) : BIG_ZERO

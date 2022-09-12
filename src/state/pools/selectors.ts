@@ -30,41 +30,40 @@ export const makeVaultPoolByKey = (key) => createSelector([selectVault(key)], (v
 export const poolsWithVaultSelector = createSelector(
   [
     poolsWithUserDataLoadingSelector,
-    makeVaultPoolByKey(VaultKey.CakeVault),
-    makeVaultPoolByKey(VaultKey.CakeFlexibleSideVault),
+    // makeVaultPoolByKey(VaultKey.CakeVault),
+    // makeVaultPoolByKey(VaultKey.CakeFlexibleSideVault),
   ],
-  (poolsWithUserDataLoading, deserializedLockedCakeVault, deserializedFlexibleSideCakeVault) => {
+  (poolsWithUserDataLoading) => {
     const { pools, userDataLoaded } = poolsWithUserDataLoading
-    console.log('______', pools)
 
-    const cakePool = pools.find((pool) => !pool.isFinished && pool.sousId === 0)
-    const withoutCakePool = pools.filter((pool) => pool.sousId !== 0)
+    // const cakePool = pools.find((pool) => !pool.isFinished && pool.sousId === 0)
+    // const withoutCakePool = pools.filter((pool) => pool.sousId !== 0)
 
     console.log('come back here to do the needful')
 
-    const cakeAutoVault = {
-      ...cakePool,
-      ...deserializedLockedCakeVault,
-      vaultKey: VaultKey.CakeVault,
-      userData: { ...cakePool.userData, ...deserializedLockedCakeVault.userData },
-    }
+    // const cakeAutoVault = {
+    //   ...cakePool,
+    //   ...deserializedLockedCakeVault,
+    //   vaultKey: VaultKey.CakeVault,
+    //   userData: { ...cakePool.userData, ...deserializedLockedCakeVault.userData },
+    // }
 
-    const lockedVaultPosition = getVaultPosition(deserializedLockedCakeVault.userData)
-    const hasFlexibleSideSharesStaked = deserializedFlexibleSideCakeVault.userData.userShares.gt(0)
+    // const lockedVaultPosition = getVaultPosition(deserializedLockedCakeVault.userData)
+    // const hasFlexibleSideSharesStaked = deserializedFlexibleSideCakeVault.userData.userShares.gt(0)
 
-    const cakeAutoFlexibleSideVault =
-      lockedVaultPosition > VaultPosition.Flexible || hasFlexibleSideSharesStaked
-        ? [
-            {
-              ...cakePool,
-              ...deserializedFlexibleSideCakeVault,
-              vaultKey: VaultKey.CakeFlexibleSideVault,
-              userData: { ...cakePool.userData, ...deserializedFlexibleSideCakeVault.userData },
-            },
-          ]
-        : []
+    // const cakeAutoFlexibleSideVault =
+    //   lockedVaultPosition > VaultPosition.Flexible || hasFlexibleSideSharesStaked
+    //     ? [
+    //         {
+    //           ...cakePool,
+    //           ...deserializedFlexibleSideCakeVault,
+    //           vaultKey: VaultKey.CakeFlexibleSideVault,
+    //           userData: { ...cakePool.userData, ...deserializedFlexibleSideCakeVault.userData },
+    //         },
+    //       ]
+    //     : []
 
-    return { pools: [cakeAutoVault, ...cakeAutoFlexibleSideVault, ...withoutCakePool], userDataLoaded }
+    return { pools: [...pools], userDataLoaded }
   },
 )
 
