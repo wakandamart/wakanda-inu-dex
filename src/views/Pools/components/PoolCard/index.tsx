@@ -18,10 +18,6 @@ const PoolCard: React.FC<{ pool: DeserializedPool; account: string }> = ({ pool,
   const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO
   const accountHasStakedBalance = stakedBalance.gt(0)
 
-  const isCakePool = earningToken.symbol === 'CAKE' && stakingToken.symbol === 'CAKE'
-
-  console.log('sweet', pool)
-
   return (
     <StyledCard
       isFinished={isFinished && sousId !== 0}
@@ -29,8 +25,8 @@ const PoolCard: React.FC<{ pool: DeserializedPool; account: string }> = ({ pool,
     >
       <PoolCardHeader isStaking={accountHasStakedBalance} isFinished={isFinished && sousId !== 0}>
         <PoolCardHeaderTitle
-          title={isCakePool ? t('Manual') : t('Earn %asset%', { asset: earningToken.symbol })}
-          subTitle={isCakePool ? t('Earn CAKE, stake CAKE') : t('Stake %symbol%', { symbol: stakingToken.symbol })}
+          title={t('Earn %asset%', { asset: earningToken.symbol })}
+          subTitle={t('Stake %symbol%', { symbol: stakingToken.symbol })}
         />
         <TokenPairImage primaryToken={earningToken} secondaryToken={stakingToken} width={64} height={64} />
       </PoolCardHeader>

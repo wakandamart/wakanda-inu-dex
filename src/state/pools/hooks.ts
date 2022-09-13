@@ -12,7 +12,6 @@ import {
   fetchCakeVaultPublicData,
   fetchCakeVaultUserData,
   fetchCakeVaultFees,
-  fetchPoolsStakingLimitsAsync,
   fetchUserIfoCreditDataAsync,
   fetchIfoPublicDataAsync,
   fetchCakeFlexibleSideVaultPublicData,
@@ -52,7 +51,6 @@ export const useFetchPublicPoolsData = () => {
 
         batch(() => {
           dispatch(fetchPoolsPublicDataAsync(currentBlock))
-          dispatch(fetchPoolsStakingLimitsAsync())
         })
       }
 

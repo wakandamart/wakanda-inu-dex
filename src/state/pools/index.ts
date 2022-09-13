@@ -12,7 +12,7 @@ import {
   SerializedLockedCakeVault,
 } from 'state/types'
 import { getPoolApr } from 'utils/apr'
-import { BIG_ZERO } from 'utils/bigNumber'
+// import { BIG_ZERO } from 'utils/bigNumber'
 import cakeAbi from 'config/abi/cake.json'
 import { getCakeVaultAddress, getCakeFlexibleSideVaultAddress } from 'utils/addressHelpers'
 import { multicallv2 } from 'utils/multicall'
@@ -22,12 +22,7 @@ import { bscRpcProvider } from 'utils/providers'
 import priceHelperLpsConfig from 'config/constants/priceHelperLps'
 import fetchFarms from '../farms/fetchFarms'
 import getFarmsPrices from '../farms/getFarmsPrices'
-import {
-  fetchPoolsBlockLimits,
-  fetchPoolsProfileRequirement,
-  fetchPoolsStakingLimits,
-  fetchPoolsTotalStaking,
-} from './fetchPools'
+import { fetchPoolsBlockLimits, fetchPoolsTotalStaking } from './fetchPools'
 import {
   fetchPoolsAllowance,
   fetchUserBalances,
@@ -82,7 +77,7 @@ const initialState: PoolsState = {
 }
 
 const cakeVaultAddress = getCakeVaultAddress()
-
+//   not needed but cant remove it as it is beeing used in another file
 export const fetchCakePoolPublicDataAsync = () => async (dispatch, getState) => {
   const farmsData = getState().farms.data
   const prices = getTokenPricesFromFarm(farmsData)
@@ -106,6 +101,7 @@ export const fetchCakePoolPublicDataAsync = () => async (dispatch, getState) => 
   )
 }
 
+//   not needed but cant remove it as it is beeing used in another file
 export const fetchCakePoolUserDataAsync = (account: string) => async (dispatch) => {
   const allowanceCall = {
     address: bscTokens.cake.address,
@@ -133,10 +129,9 @@ export const fetchCakePoolUserDataAsync = (account: string) => async (dispatch) 
 
 export const fetchPoolsPublicDataAsync = (currentBlockNumber: number) => async (dispatch, getState) => {
   try {
-    const [blockLimits, totalStakings, profileRequirements, currentBlock] = await Promise.all([
+    const [blockLimits, totalStakings, currentBlock] = await Promise.all([
       fetchPoolsBlockLimits(),
       fetchPoolsTotalStaking(),
-      fetchPoolsProfileRequirement(),
       currentBlockNumber ? Promise.resolve(currentBlockNumber) : bscRpcProvider.getBlockNumber(),
     ])
 
@@ -186,12 +181,9 @@ export const fetchPoolsPublicDataAsync = (currentBlockNumber: number) => async (
           )
         : 0
 
-      const profileRequirement = profileRequirements[pool.sousId] ? profileRequirements[pool.sousId] : undefined
-
       return {
         ...blockLimit,
         ...totalStaking,
-        profileRequirement,
         stakingTokenPrice,
         earningTokenPrice,
         apr,
@@ -202,35 +194,6 @@ export const fetchPoolsPublicDataAsync = (currentBlockNumber: number) => async (
     dispatch(setPoolsPublicData(liveData))
   } catch (error) {
     console.error('[Pools Action] error when getting public data', error)
-  }
-}
-
-export const fetchPoolsStakingLimitsAsync = () => async (dispatch, getState) => {
-  const poolsWithStakingLimit = getState()
-    .pools.data.filter(({ stakingLimit }) => stakingLimit !== null && stakingLimit !== undefined)
-    .map((pool) => pool.sousId)
-
-  try {
-    const stakingLimits = await fetchPoolsStakingLimits(poolsWithStakingLimit)
-
-    const stakingLimitData = poolsConfig.map((pool) => {
-      if (poolsWithStakingLimit.includes(pool.sousId)) {
-        return { sousId: pool.sousId }
-      }
-      const { stakingLimit, numberBlocksForUserLimit } = stakingLimits[pool.sousId] || {
-        stakingLimit: BIG_ZERO,
-        numberBlocksForUserLimit: 0,
-      }
-      return {
-        sousId: pool.sousId,
-        stakingLimit: stakingLimit.toJSON(),
-        numberBlocksForUserLimit,
-      }
-    })
-
-    dispatch(setPoolsPublicData(stakingLimitData))
-  } catch (error) {
-    console.error('[Pools Action] error when getting staking limits', error)
   }
 }
 
