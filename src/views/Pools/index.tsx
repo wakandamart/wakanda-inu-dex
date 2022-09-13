@@ -330,13 +330,13 @@ const Pools: React.FC = () => {
             </LabelWrapper>
           </FilterContainer>
         </PoolControls>
-        {showFinishedPools && (
+        {/* {showFinishedPools && (
           <FinishedTextContainer>
             <Text fontSize={['16px', null, '20px']} color="failure" pr="4px" textAlign="center" mx="auto">
               {t('No finished pools')}
             </Text>
           </FinishedTextContainer>
-        )}
+        )} */}
         {account && !userDataLoaded && stakedOnly && (
           <Flex justifyContent="center" mb="4px">
             <Loading />

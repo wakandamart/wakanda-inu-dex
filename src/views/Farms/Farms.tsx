@@ -338,13 +338,13 @@ const Farms: React.FC = ({ children }) => {
             </LabelWrapper>
           </FilterContainer>
         </ControlContainer>
-        {isInactive && (
+        {/* {isInactive && (
           <FinishedTextContainer>
             <Text fontSize={['16px', null, '20px']} color="failure" textAlign="center" mx="auto">
               {t('No Finished farm')}
             </Text>
           </FinishedTextContainer>
-        )}
+        )} */}
         {viewMode === ViewMode.TABLE ? (
           <Table farms={chosenFarmsMemoized} wkdPrice={wkdPrice} userDataReady={userDataReady} />
         ) : (

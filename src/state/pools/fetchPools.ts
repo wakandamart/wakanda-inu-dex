@@ -74,7 +74,10 @@ export const fetchPoolsTotalStaking = async () => {
 
   return poolsConfig.map((p, index) => ({
     sousId: p.sousId,
-    totalStaked: new BigNumber(balances[index]).minus(new BigNumber(rewards[index])).toJSON(),
+    totalStaked:
+      p.stakingToken.address.toLowerCase() === p.earningToken.address.toLowerCase()
+        ? new BigNumber(balances[index]).minus(new BigNumber(rewards[index])).toJSON()
+        : new BigNumber(balances[index]).toJSON(),
   }))
 }
 
