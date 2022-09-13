@@ -27,7 +27,7 @@ const startEndBlockCalls = poolsWithEnd.flatMap((poolConfig) => {
 })
 
 export const fetchPoolsBlockLimits = async () => {
-  const startEndBlockRaw = await multicall(sousChefABI, startEndBlockCalls)
+  const startEndBlockRaw = await multicall(wkdPoolABI, startEndBlockCalls)
 
   const startEndBlockResult = startEndBlockRaw.reduce((resultArray, item, index) => {
     const chunkIndex = Math.floor(index / 2)
@@ -60,12 +60,21 @@ const poolsBalanceOf = poolsConfig.map((poolConfig) => {
   }
 })
 
+const availableRewards = poolsConfig.map((poolConfig) => {
+  return {
+    address: getAddress(poolConfig.contractAddress),
+    name: 'availableRewards',
+    params: [],
+  }
+})
+
 export const fetchPoolsTotalStaking = async () => {
-  const poolsTotalStaked = await multicall(erc20ABI, poolsBalanceOf)
+  const balances = await multicall(erc20ABI, poolsBalanceOf)
+  const rewards = await multicall(wkdPoolABI, availableRewards)
 
   return poolsConfig.map((p, index) => ({
     sousId: p.sousId,
-    totalStaked: new BigNumber(poolsTotalStaked[index]).toJSON(),
+    totalStaked: new BigNumber(balances[index]).minus(new BigNumber(rewards[index])).toJSON(),
   }))
 }
 
