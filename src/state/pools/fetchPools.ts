@@ -1,13 +1,9 @@
 import BigNumber from 'bignumber.js'
-import { BigNumber as EthersBigNumber } from '@ethersproject/bignumber'
 import poolsConfig from 'config/constants/pools'
 import wkdPoolABI from 'config/abi/wkdPool.json'
 import erc20ABI from 'config/abi/erc20.json'
-import multicall, { multicallv2 } from 'utils/multicall'
+import multicall from 'utils/multicall'
 import { getAddress } from 'utils/addressHelpers'
-import { BIG_ZERO } from 'utils/bigNumber'
-import chunk from 'lodash/chunk'
-import sousChefV2 from '../../config/abi/sousChefV2.json'
 
 const poolsWithEnd = poolsConfig.filter((p) => p.sousId !== 0)
 

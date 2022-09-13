@@ -77,7 +77,7 @@ const initialState: PoolsState = {
 }
 
 const cakeVaultAddress = getCakeVaultAddress()
-
+//   not needed but cant remove it as it is beeing used in another file
 export const fetchCakePoolPublicDataAsync = () => async (dispatch, getState) => {
   const farmsData = getState().farms.data
   const prices = getTokenPricesFromFarm(farmsData)
@@ -101,6 +101,7 @@ export const fetchCakePoolPublicDataAsync = () => async (dispatch, getState) => 
   )
 }
 
+//   not needed but cant remove it as it is beeing used in another file
 export const fetchCakePoolUserDataAsync = (account: string) => async (dispatch) => {
   const allowanceCall = {
     address: bscTokens.cake.address,
