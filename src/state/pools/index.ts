@@ -22,12 +22,7 @@ import { bscRpcProvider } from 'utils/providers'
 import priceHelperLpsConfig from 'config/constants/priceHelperLps'
 import fetchFarms from '../farms/fetchFarms'
 import getFarmsPrices from '../farms/getFarmsPrices'
-import {
-  fetchPoolsBlockLimits,
-  fetchPoolsProfileRequirement,
-  fetchPoolsStakingLimits,
-  fetchPoolsTotalStaking,
-} from './fetchPools'
+import { fetchPoolsBlockLimits, fetchPoolsStakingLimits, fetchPoolsTotalStaking } from './fetchPools'
 import {
   fetchPoolsAllowance,
   fetchUserBalances,
@@ -133,10 +128,9 @@ export const fetchCakePoolUserDataAsync = (account: string) => async (dispatch) 
 
 export const fetchPoolsPublicDataAsync = (currentBlockNumber: number) => async (dispatch, getState) => {
   try {
-    const [blockLimits, totalStakings, profileRequirements, currentBlock] = await Promise.all([
+    const [blockLimits, totalStakings, currentBlock] = await Promise.all([
       fetchPoolsBlockLimits(),
       fetchPoolsTotalStaking(),
-      fetchPoolsProfileRequirement(),
       currentBlockNumber ? Promise.resolve(currentBlockNumber) : bscRpcProvider.getBlockNumber(),
     ])
 
@@ -186,12 +180,9 @@ export const fetchPoolsPublicDataAsync = (currentBlockNumber: number) => async (
           )
         : 0
 
-      const profileRequirement = profileRequirements[pool.sousId] ? profileRequirements[pool.sousId] : undefined
-
       return {
         ...blockLimit,
         ...totalStaking,
-        profileRequirement,
         stakingTokenPrice,
         earningTokenPrice,
         apr,

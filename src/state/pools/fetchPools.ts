@@ -113,39 +113,3 @@ export const fetchPoolsStakingLimits = async (
     }
   }, {})
 }
-
-const poolsWithV3 = poolsConfig.filter((pool) => pool?.version === 3)
-
-export const fetchPoolsProfileRequirement = async (): Promise<{
-  [key: string]: {
-    required: boolean
-    thresholdPoints: BigNumber
-  }
-}> => {
-  const poolProfileRequireCalls = poolsWithV3
-    .map((validPool) => {
-      const contractAddress = getAddress(validPool.contractAddress)
-      return ['pancakeProfileIsRequested', 'pancakeProfileThresholdPoints'].map((method) => ({
-        address: contractAddress,
-        name: method,
-      }))
-    })
-    .flat()
-
-  const poolProfileRequireResultRaw = await multicallv2(sousChefV3, poolProfileRequireCalls, { requireSuccess: false })
-  const chunkSize = poolProfileRequireCalls.length / poolsWithV3.length
-  const poolStakingChunkedResultRaw = chunk(poolProfileRequireResultRaw.flat(), chunkSize)
-  return poolStakingChunkedResultRaw.reduce((accum, poolProfileRequireRaw, index) => {
-    const hasProfileRequired = poolProfileRequireRaw[0]
-    const profileThresholdPoints = poolProfileRequireRaw[1]
-      ? new BigNumber(poolProfileRequireRaw[1].toString())
-      : BIG_ZERO
-    return {
-      ...accum,
-      [poolsWithV3[index].sousId]: {
-        required: hasProfileRequired,
-        thresholdPoints: profileThresholdPoints.toJSON(),
-      },
-    }
-  }, {})
-}
