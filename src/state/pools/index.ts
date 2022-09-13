@@ -12,7 +12,7 @@ import {
   SerializedLockedCakeVault,
 } from 'state/types'
 import { getPoolApr } from 'utils/apr'
-import { BIG_ZERO } from 'utils/bigNumber'
+// import { BIG_ZERO } from 'utils/bigNumber'
 import cakeAbi from 'config/abi/cake.json'
 import { getCakeVaultAddress, getCakeFlexibleSideVaultAddress } from 'utils/addressHelpers'
 import { multicallv2 } from 'utils/multicall'
@@ -22,7 +22,7 @@ import { bscRpcProvider } from 'utils/providers'
 import priceHelperLpsConfig from 'config/constants/priceHelperLps'
 import fetchFarms from '../farms/fetchFarms'
 import getFarmsPrices from '../farms/getFarmsPrices'
-import { fetchPoolsBlockLimits, fetchPoolsStakingLimits, fetchPoolsTotalStaking } from './fetchPools'
+import { fetchPoolsBlockLimits, fetchPoolsTotalStaking } from './fetchPools'
 import {
   fetchPoolsAllowance,
   fetchUserBalances,
@@ -193,35 +193,6 @@ export const fetchPoolsPublicDataAsync = (currentBlockNumber: number) => async (
     dispatch(setPoolsPublicData(liveData))
   } catch (error) {
     console.error('[Pools Action] error when getting public data', error)
-  }
-}
-
-export const fetchPoolsStakingLimitsAsync = () => async (dispatch, getState) => {
-  const poolsWithStakingLimit = getState()
-    .pools.data.filter(({ stakingLimit }) => stakingLimit !== null && stakingLimit !== undefined)
-    .map((pool) => pool.sousId)
-
-  try {
-    const stakingLimits = await fetchPoolsStakingLimits(poolsWithStakingLimit)
-
-    const stakingLimitData = poolsConfig.map((pool) => {
-      if (poolsWithStakingLimit.includes(pool.sousId)) {
-        return { sousId: pool.sousId }
-      }
-      const { stakingLimit, numberBlocksForUserLimit } = stakingLimits[pool.sousId] || {
-        stakingLimit: BIG_ZERO,
-        numberBlocksForUserLimit: 0,
-      }
-      return {
-        sousId: pool.sousId,
-        stakingLimit: stakingLimit.toJSON(),
-        numberBlocksForUserLimit,
-      }
-    })
-
-    dispatch(setPoolsPublicData(stakingLimitData))
-  } catch (error) {
-    console.error('[Pools Action] error when getting staking limits', error)
   }
 }
 

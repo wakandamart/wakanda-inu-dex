@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js'
 import { BigNumber as EthersBigNumber } from '@ethersproject/bignumber'
 import poolsConfig from 'config/constants/pools'
-import sousChefABI from 'config/abi/sousChef.json'
 import wkdPoolABI from 'config/abi/wkdPool.json'
 import erc20ABI from 'config/abi/erc20.json'
 import multicall, { multicallv2 } from 'utils/multicall'
@@ -9,7 +8,6 @@ import { getAddress } from 'utils/addressHelpers'
 import { BIG_ZERO } from 'utils/bigNumber'
 import chunk from 'lodash/chunk'
 import sousChefV2 from '../../config/abi/sousChefV2.json'
-import sousChefV3 from '../../config/abi/sousChefV3.json'
 
 const poolsWithEnd = poolsConfig.filter((p) => p.sousId !== 0)
 
@@ -74,42 +72,10 @@ export const fetchPoolsTotalStaking = async () => {
 
   return poolsConfig.map((p, index) => ({
     sousId: p.sousId,
+    // the first pool is having the stakingtoken and earning token as wkd, this is a workaround to ensure we dont don't add the tokens in the contractract for reward to the total staked
     totalStaked:
       p.stakingToken.address.toLowerCase() === p.earningToken.address.toLowerCase()
         ? new BigNumber(balances[index]).minus(new BigNumber(rewards[index])).toJSON()
         : new BigNumber(balances[index]).toJSON(),
   }))
-}
-
-export const fetchPoolsStakingLimits = async (
-  poolsWithStakingLimit: number[],
-): Promise<{ [key: string]: { stakingLimit: BigNumber; numberBlocksForUserLimit: number } }> => {
-  const validPools = poolsConfig
-    .filter((p) => p.stakingToken.symbol !== 'BNB' && !p.isFinished)
-    .filter((p) => !poolsWithStakingLimit.includes(p.sousId))
-
-  // Get the staking limit for each valid pool
-  const poolStakingCalls = validPools
-    .map((validPool) => {
-      const contractAddress = getAddress(validPool.contractAddress)
-      return ['hasUserLimit', 'poolLimitPerUser', 'numberBlocksForUserLimit'].map((method) => ({
-        address: contractAddress,
-        name: method,
-      }))
-    })
-    .flat()
-
-  const poolStakingResultRaw = await multicallv2(sousChefV2, poolStakingCalls, { requireSuccess: false })
-  const chunkSize = poolStakingCalls.length / validPools.length
-  const poolStakingChunkedResultRaw = chunk(poolStakingResultRaw.flat(), chunkSize)
-
-  return poolStakingChunkedResultRaw.reduce((accum, stakingLimitRaw, index) => {
-    const hasUserLimit = stakingLimitRaw[0]
-    const stakingLimit = hasUserLimit && stakingLimitRaw[1] ? new BigNumber(stakingLimitRaw[1].toString()) : BIG_ZERO
-    const numberBlocksForUserLimit = stakingLimitRaw[2] ? (stakingLimitRaw[2] as EthersBigNumber).toNumber() : 0
-    return {
-      ...accum,
-      [validPools[index].sousId]: { stakingLimit, numberBlocksForUserLimit },
-    }
-  }, {})
 }
