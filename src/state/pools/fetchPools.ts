@@ -4,6 +4,7 @@ import wkdPoolABI from 'config/abi/wkdPool.json'
 import erc20ABI from 'config/abi/erc20.json'
 import multicall from 'utils/multicall'
 import { getAddress } from 'utils/addressHelpers'
+import { formatUnits } from '@ethersproject/units'
 
 const poolsWithEnd = poolsConfig.filter((p) => p.sousId !== 0)
 
@@ -68,7 +69,7 @@ export const fetchPoolsTotalStaking = async () => {
 
   return poolsConfig.map((p, index) => ({
     sousId: p.sousId,
-    // the first pool is having the stakingtoken and earning token as wkd, this is a workaround to ensure we dont don't add the tokens in the contractract for reward to the total staked
+    // the first pool is having the stakingtoken and earning token as wkd, this is a workaround to ensure we dont don't add the tokens in the contract for reward to the total staked
     totalStaked:
       p.stakingToken.address.toLowerCase() === p.earningToken.address.toLowerCase()
         ? new BigNumber(balances[index]).minus(new BigNumber(rewards[index])).toJSON()
