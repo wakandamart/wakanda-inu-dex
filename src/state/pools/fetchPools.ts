@@ -4,6 +4,7 @@ import wkdPoolABI from 'config/abi/wkdPool.json'
 import erc20ABI from 'config/abi/erc20.json'
 import multicall from 'utils/multicall'
 import { getAddress } from 'utils/addressHelpers'
+import { formatUnits } from '@ethersproject/units'
 
 const poolsWithEnd = poolsConfig.filter((p) => p.sousId !== 0)
 
@@ -65,6 +66,9 @@ const availableRewards = poolsConfig.map((poolConfig) => {
 export const fetchPoolsTotalStaking = async () => {
   const balances = await multicall(erc20ABI, poolsBalanceOf)
   const rewards = await multicall(wkdPoolABI, availableRewards)
+
+  console.log('tatal wkd in pool: ', formatUnits(new BigNumber(balances[0]).toJSON(), 9))
+  console.log('tatal wkd as reward in pool: ', formatUnits(new BigNumber(rewards[0]).toJSON(), 9))
 
   return poolsConfig.map((p, index) => ({
     sousId: p.sousId,
