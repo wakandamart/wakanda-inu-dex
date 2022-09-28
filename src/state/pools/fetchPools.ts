@@ -67,12 +67,9 @@ export const fetchPoolsTotalStaking = async () => {
   const balances = await multicall(erc20ABI, poolsBalanceOf)
   const rewards = await multicall(wkdPoolABI, availableRewards)
 
-  console.log('tatal wkd in pool: ', formatUnits(new BigNumber(balances[0]).toJSON(), 9))
-  console.log('tatal wkd as reward in pool: ', formatUnits(new BigNumber(rewards[0]).toJSON(), 9))
-
   return poolsConfig.map((p, index) => ({
     sousId: p.sousId,
-    // the first pool is having the stakingtoken and earning token as wkd, this is a workaround to ensure we dont don't add the tokens in the contractract for reward to the total staked
+    // the first pool is having the stakingtoken and earning token as wkd, this is a workaround to ensure we dont don't add the tokens in the contract for reward to the total staked
     totalStaked:
       p.stakingToken.address.toLowerCase() === p.earningToken.address.toLowerCase()
         ? new BigNumber(balances[index]).minus(new BigNumber(rewards[index])).toJSON()
