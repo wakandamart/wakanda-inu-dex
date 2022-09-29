@@ -346,7 +346,10 @@ const Farms: React.FC = ({ children }) => {
           </FinishedTextContainer>
         )} */}
         {viewMode === ViewMode.TABLE ? (
-          <Table farms={chosenFarmsMemoized} wkdPrice={wkdPrice} userDataReady={userDataReady} />
+          // <Table farms={chosenFarmsMemoized} wkdPrice={wkdPrice} userDataReady={userDataReady} />
+          <Text textAlign="center" mx="auto">
+            Coming soon...
+          </Text>
         ) : (
           <FlexLayout>{children}</FlexLayout>
         )}
