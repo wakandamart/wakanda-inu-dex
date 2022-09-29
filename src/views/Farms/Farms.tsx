@@ -351,7 +351,10 @@ const Farms: React.FC = ({ children }) => {
             Coming soon...
           </Text>
         ) : (
-          <FlexLayout>{children}</FlexLayout>
+          // <FlexLayout>{children}</FlexLayout>
+          <Text textAlign="center" mx="auto">
+            Coming soon...
+          </Text>
         )}
         {account && !userDataLoaded && stakedOnly && (
           <Flex justifyContent="center">
