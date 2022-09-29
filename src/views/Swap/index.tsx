@@ -621,7 +621,7 @@ export default function Swap() {
             </StyledInputCurrencyWrapper>
           </StyledSwapContainer> 
         </Flex> */}
-        <Text textAlign="center" mx="auto">
+        <Text textAlign="center" mx="auto" mt={150}>
           Coming soon...
         </Text>
       </Flex>

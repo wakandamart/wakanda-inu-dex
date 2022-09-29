@@ -111,7 +111,7 @@ export default function Pool() {
           </Link>
         </CardFooter>
       </AppBody> */}
-      <Text textAlign="center" mx="auto">
+      <Text textAlign="center" mx="auto" mt={150}>
         Coming soon...
       </Text>
     </Page>

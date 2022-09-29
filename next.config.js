@@ -91,16 +91,6 @@ const config = {
   async redirects() {
     return [
       {
-        source: '/',
-        destination: '/swap',
-        permanent: true,
-      },
-      {
-        source: '/ifo',
-        destination: '/swap',
-        permanent: true,
-      },
-      {
         source: '/send',
         destination: '/swap',
         permanent: true,
@@ -138,6 +128,48 @@ const config = {
       {
         source: '/collectibles',
         destination: '/nfts',
+        permanent: true,
+      },
+
+      // newly added
+      {
+        source: '/',
+        destination: '/swap',
+        permanent: true,
+      },
+      {
+        source: '/farms/auction',
+        destination: '/farms',
+        permanent: true,
+      },
+      {
+        source: '/add/:currrency*',
+        destination: '/liquidity',
+        permanent: true,
+      },
+      {
+        source: '/remove/:currrency*',
+        destination: '/liquidity',
+        permanent: true,
+      },
+      {
+        source: '/ifo',
+        destination: '/404',
+        permanent: true,
+      },
+      {
+        source: '/ifo/history',
+        destination: '/404',
+        permanent: true,
+      },
+      {
+        source: '/find',
+        destination: '/404',
+        permanent: true,
+      },
+      {
+        source: '/limit-orders',
+        destination: '/404',
         permanent: true,
       },
     ]
