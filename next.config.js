@@ -132,11 +132,11 @@ const config = {
       },
 
       // newly added
-      {
-        source: '/',
-        destination: '/swap',
-        permanent: true,
-      },
+      // {
+      //   source: '/',
+      //   destination: '/swap',
+      //   permanent: true,
+      // },
       {
         source: '/farms/auction',
         destination: '/farms',
