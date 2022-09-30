@@ -1,7 +1,7 @@
 {
   "build": {
     "image": "node:16.17.1-alpine3.15",
-    "command": "yarn && yarn build",
+    "command": "npm install && npm run build",
     "publicDir": ".next",
     "baseDir": ""
   }
