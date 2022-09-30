@@ -1,7 +1,7 @@
 {
   "build": {
     "image": "node:16.17.1-alpine3.15",
-    "command": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && nvm install 16.17.1 && nvm use 16.17.1 && yarn && yarn build",
+    "command": "yarn && yarn build",
     "publicDir": ".next",
     "baseDir": ""
   }
