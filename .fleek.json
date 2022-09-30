@@ -1,7 +1,7 @@
 {
   "build": {
     "image": "node:16.17.1-alpine3.15",
-    "command": "apk add git && npm install && npm run build",
+    "command": "apk add git && yarn && npm build",
     "publicDir": ".next",
     "baseDir": ""
   }
